@@ -20,5 +20,10 @@ namespace Kalender_Project_FlorianRohat
         {
             InitializeComponent();
         }
+
+        private DateTime? GetDateTime()
+        {
+            return Calendar.SelectedDate ?? DateTime.Today;
+        }
     }
 }

@@ -6,7 +6,22 @@
         xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Calendar">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontFamily" Value="Your Desired Font"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
+    </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="185"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Calendar x:Name="Calendar" Grid.Column="0" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185"></Calendar>
+        <Canvas Grid.Column="1" Background="Azure"> </Canvas>
 
     </Grid>
 </Window>
