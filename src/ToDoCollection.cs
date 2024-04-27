@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
-using Firebase.Database;
+//using Firebase.Database;
 using System.Windows.Media;
-using Firebase.Database.Query;
+//using Firebase.Database.Query;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -24,7 +24,7 @@ namespace Kalender_Project_FlorianRohat
             ToDoList.Remove(todo);
         }
 
-        public void Draw(StackPanel todoListPanel, FirebaseClient firebaseClient)
+        public void Draw(StackPanel todoListPanel/*, FirebaseClient firebaseClient*/)
         {
             todoListPanel.Children.Clear();
             foreach (ToDo todo in ToDoList)
@@ -42,19 +42,19 @@ namespace Kalender_Project_FlorianRohat
                     {
                         todoItemControl.Background = null;
                     }
-                    await firebaseClient
+                    /*await firebaseClient
                         .Child("Todo")
                         .Child(todo.Key)
-                        .PutAsync(todo);
+                        .PutAsync(todo);*/
                 };
                 todoItemControl.DeleteButton.Click += async (sender, e) =>
                 {
                     Remove(todo);
                     todoListPanel.Children.Remove(todoItemControl);
-                    await firebaseClient
+                    /*await firebaseClient
                         .Child("Todo")
                         .Child(todo.Key)
-                        .DeleteAsync();
+                        .DeleteAsync();*/
                 };
                 if (todo.IsDone)
                 {
