@@ -8,7 +8,6 @@ namespace Kalender_Project_FlorianRohat
 {
     public class ToDo
     {
-        public string Key { get; set; }
         public string Title { get; set; }
         public bool IsDone { get; set; }
         public DateTime DueDate { get; set; }
@@ -16,9 +15,8 @@ namespace Kalender_Project_FlorianRohat
         public ToDo() { }
         
 
-        public ToDo(string key, string title, bool isDone, DateTime dueDate)
+        public ToDo(string title, bool isDone, DateTime dueDate)
         {
-            Key = key;
             Title = title;
             IsDone = isDone;
             DueDate = dueDate;
