@@ -10,21 +10,21 @@ namespace Kalender_Project_FlorianRohat
     {
         public string Title { get; set; }
         public bool IsDone { get; set; }
-        public DateTime DueDate { get; set; }
+        public DateTime TodoDate { get; set; }
 
         public ToDo() { }
         
 
-        public ToDo(string title, bool isDone, DateTime dueDate)
+        public ToDo(string title, bool isDone, DateTime todoDate)
         {
             Title = title;
             IsDone = isDone;
-            DueDate = dueDate;
+            TodoDate = todoDate;
         }
 
         public override string ToString()
         {
-            return $"{Title} - {DueDate} - {IsDone}";
+            return $"{Title} - {TodoDate} - {IsDone}";
         }
 
         

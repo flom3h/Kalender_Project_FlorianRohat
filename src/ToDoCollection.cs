@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 //using Firebase.Database;
 using System.Windows.Media;
 //using Firebase.Database.Query;
@@ -24,13 +19,14 @@ namespace Kalender_Project_FlorianRohat
             ToDoList.Remove(todo);
         }
 
-        public void Draw(StackPanel todoListPanel/*, FirebaseClient firebaseClient*/)
+        public void Draw(StackPanel stackPanel/*, FirebaseClient firebaseClient*/)
         {
-            todoListPanel.Children.Clear();
+            stackPanel.Children.Clear();
             foreach (ToDo todo in ToDoList)
             {
                 TodoItemControl todoItemControl = new TodoItemControl();
                 todoItemControl.TodoText.Text = todo.Title;
+                todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
                 todoItemControl.CheckButton.Click += async (sender, e) =>
                 {
                     todo.IsDone = !todo.IsDone;
@@ -50,7 +46,7 @@ namespace Kalender_Project_FlorianRohat
                 todoItemControl.DeleteButton.Click += async (sender, e) =>
                 {
                     Remove(todo);
-                    todoListPanel.Children.Remove(todoItemControl);
+                    stackPanel.Children.Remove(todoItemControl);
                     /*await firebaseClient
                         .Child("Todo")
                         .Child(todo.Key)
@@ -60,7 +56,7 @@ namespace Kalender_Project_FlorianRohat
                 {
                     todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                 }
-                todoListPanel.Children.Add(todoItemControl);
+                stackPanel.Children.Add(todoItemControl);
             }
         }
     }
