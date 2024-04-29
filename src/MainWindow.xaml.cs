@@ -14,8 +14,8 @@ namespace Kalender_Project_FlorianRohat
             InitializeComponent();
             DisplayTime();
         }
-        
-        private void AddClick (object sender, RoutedEventArgs e)
+
+        private void AddClick(object sender, RoutedEventArgs e)
         {
             AddTodoWindow addTodoWindow = new AddTodoWindow();
             if (addTodoWindow.ShowDialog() == true)
@@ -39,6 +39,28 @@ namespace Kalender_Project_FlorianRohat
                 DateDisplay.Content = DateTime.Now.ToString("hh:mm:ss tt");
             };
             timer.Start();
+        }
+
+        private void EditClick(object sender, RoutedEventArgs e)
+        {
+           
+            if (toDoCollection.ToDoList.Count() > 0)
+            {
+                ToDo todoToEdit = toDoCollection.ToDoList[0];
+
+                // Öffne das Fenster zur Bearbeitung mit den Informationen des zu bearbeitenden ToDo-Elements
+                AddTodoWindow editTodoWindow = new AddTodoWindow(todoToEdit);
+
+                // Wenn der Benutzer auf "Speichern" klickt
+                if (editTodoWindow.ShowDialog() == true)
+                {
+                    // Aktualisiere das ToDo-Element
+                    toDoCollection.Edit(todoToEdit, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
+                    // Zeichne die Liste erneut
+                    toDoCollection.Draw(stackPanel);
+                }
+            }   
+            
         }
     }
 }

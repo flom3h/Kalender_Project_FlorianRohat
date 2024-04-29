@@ -19,10 +19,17 @@ public partial class AddTodoWindow : Window
         TodoDate.SelectedDate = DateTime.Today;
 
     }
-    
+    public AddTodoWindow(ToDo todoToEdit)
+    {
+        InitializeComponent();
+        Todo = todoToEdit;
+        TodoInput.Text = Todo.Title;
+        TodoDate.SelectedDate = Todo.TodoDate;
+    }
+
     private void CreateClick (object sender, RoutedEventArgs e)
     {
-        if(string .IsNullOrEmpty(TodoInput.Text) == false && TodoDate.SelectedDate.HasValue)
+        if(string.IsNullOrEmpty(TodoInput.Text) == false && TodoDate.SelectedDate.HasValue)
 
         {
             if(TodoDate.SelectedDate.Value.Date >= DateTime.Today)
