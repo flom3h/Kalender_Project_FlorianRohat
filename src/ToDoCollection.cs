@@ -1,4 +1,6 @@
-﻿using System.Windows.Controls;
+﻿using System.IO;
+using System.Text.Json;
+using System.Windows.Controls;
 //using Firebase.Database;
 using System.Windows.Media;
 //using Firebase.Database.Query;
@@ -24,6 +26,18 @@ namespace Kalender_Project_FlorianRohat
         {
             todo.Title = title;
             todo.TodoDate = todoDate;
+        }
+        
+        public void Serialize(string filename)
+        {
+            using (StreamWriter stream = new StreamWriter(filename))
+            {
+                foreach (var todo in ToDoList)
+                {
+                    string jsonStr = JsonSerializer.Serialize(todo);
+                    stream.WriteLine(jsonStr);
+                }
+            }
         }
 
         public void Draw(StackPanel stackPanel/*, FirebaseClient firebaseClient*/)
@@ -73,6 +87,7 @@ namespace Kalender_Project_FlorianRohat
                 {
                     todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                 }
+                
                 
                 
 

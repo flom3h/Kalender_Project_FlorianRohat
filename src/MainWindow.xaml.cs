@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Threading;
+using Microsoft.Win32;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -24,6 +26,23 @@ namespace Kalender_Project_FlorianRohat
                 toDoCollection.Draw(stackPanel);
             }
         }
+        
+        private void SaveClick(object sender, RoutedEventArgs e)
+        {
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Title = "Save ToDo List";
+            saveFileDialog.Filter = "JSON File|*.json";
+            saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            
+            saveFileDialog.Filter = "JSON File|*.json";
+            
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                string fileName = saveFileDialog.FileName;
+                toDoCollection.Serialize(fileName);
+
+            }
+        }
 
         private DateTime? GetDateTime()
         {
@@ -40,27 +59,7 @@ namespace Kalender_Project_FlorianRohat
             };
             timer.Start();
         }
-
-        /*private void EditClick(object sender, RoutedEventArgs e)
-        {
-           
-            if (toDoCollection.ToDoList.Count() > 0)
-            {
-                ToDo todoToEdit = toDoCollection.ToDoList[0];
-
-                // Öffne das Fenster zur Bearbeitung mit den Informationen des zu bearbeitenden ToDo-Elements
-                AddTodoWindow editTodoWindow = new AddTodoWindow(todoToEdit);
-
-                // Wenn der Benutzer auf "Speichern" klickt
-                if (editTodoWindow.ShowDialog() == true)
-                {
-                    // Aktualisiere das ToDo-Element
-                    toDoCollection.Edit(todoToEdit, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
-                    // Zeichne die Liste erneut
-                    toDoCollection.Draw(stackPanel);
-                }
-            }   
-            
-        }*/
+        
+        
     }
 }

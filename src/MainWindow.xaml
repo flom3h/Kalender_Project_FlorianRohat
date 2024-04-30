@@ -24,8 +24,7 @@
         <StackPanel Grid.Column="1" >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
                 <Button x:Name="Add" Content="Add" Width="70" Margin="5" Click="AddClick"/>
-                <Button x:Name="Remove" Content="Remove" Width="70" Margin="5"/>
-                <Button x:Name="Save" Content="Save" Width="70" Margin="5"/>
+                <Button x:Name="Save" Content="Save" Width="70" Margin="5" Click="SaveClick"/>
                 <Label Content="Holder" Width="70" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
                 <Label x:Name="DateDisplay" Content="" Width="70" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
             </StackPanel>
