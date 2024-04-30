@@ -60,12 +60,19 @@ namespace Kalender_Project_FlorianRohat
                         .Child(todo.Key)
                         .DeleteAsync();*/
                 };
+                todoItemControl.EditButton.Click += (sender, e) =>
+                {
+                    AddTodoWindow editTodoWindow = new AddTodoWindow(todo);
+                    if (editTodoWindow.ShowDialog() == true)
+                    {
+                        Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
+                        Draw(stackPanel);
+                    }
+                };
                 if (todo.IsDone)
                 {
                     todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                 }
-
-                // Code me a edit button, where when the user clicks on it, a new window opens up, where the user can edit the todo item. Do it now.
                 
                 
 

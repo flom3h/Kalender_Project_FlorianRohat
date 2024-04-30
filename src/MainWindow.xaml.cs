@@ -41,7 +41,7 @@ namespace Kalender_Project_FlorianRohat
             timer.Start();
         }
 
-        private void EditClick(object sender, RoutedEventArgs e)
+        /*private void EditClick(object sender, RoutedEventArgs e)
         {
            
             if (toDoCollection.ToDoList.Count() > 0)
@@ -61,6 +61,6 @@ namespace Kalender_Project_FlorianRohat
                 }
             }   
             
-        }
+        }*/
     }
 }

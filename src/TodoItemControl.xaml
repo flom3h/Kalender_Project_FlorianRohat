@@ -19,7 +19,7 @@
             <TextBlock x:Name="TodoDate" Grid.Column="1" Text="Date" Margin="2"/>
             <Button x:Name="EditButton" Grid.Column="2" Content="✎" Margin="5,0"/>
             <Button x:Name="CheckButton" Grid.Column="3" Content="✔" Margin="5,0"/>
-            <Button x:Name="DeleteButton" Grid.Column="4" Content="✘" Margin="5,0"/>
+            <Button x:Name="DeleteButton" Grid.Column="4" Content="❌" Margin="5,0"/>
 
             <!--Edit Button-->
             
