@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
 
@@ -23,7 +24,14 @@ namespace Kalender_Project_FlorianRohat
             if (addTodoWindow.ShowDialog() == true)
             {
                 toDoCollection.Add(addTodoWindow.Todo);
-                toDoCollection.Draw(stackPanel);
+                if (Calendar.SelectedDate.HasValue)
+                {
+                    toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value);
+                }
+                else
+                {
+                    MessageBox.Show("Bitte wählen Sie ein Datum aus", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
         
@@ -44,11 +52,6 @@ namespace Kalender_Project_FlorianRohat
             }
         }
 
-        private DateTime? GetDateTime()
-        {
-            return Calendar.SelectedDate ?? DateTime.Today;
-        }
-
         private void DisplayTime()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -59,7 +62,18 @@ namespace Kalender_Project_FlorianRohat
             };
             timer.Start();
         }
-        
-        
+
+
+        private void DateChange(object? sender, SelectionChangedEventArgs e)
+        {
+            if (Calendar.SelectedDate.HasValue)
+            {
+                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value);
+            }
+            else
+            {
+                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value);
+            }
+        }
     }
 }

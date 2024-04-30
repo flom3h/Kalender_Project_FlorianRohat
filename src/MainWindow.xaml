@@ -23,23 +23,25 @@
         
         <StackPanel Grid.Column="1" >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
-                <Button x:Name="Add" Content="Add" Width="70" Margin="5" Click="AddClick"/>
-                <Button x:Name="Save" Content="Save" Width="70" Margin="5" Click="SaveClick"/>
-                <Label Content="Holder" Width="70" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
-                <Label x:Name="DateDisplay" Content="" Width="70" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+                <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
+                <Button x:Name="Save" Content="Save" Width="140" Margin="5" Click="SaveClick"/>
+                <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
             </StackPanel>
             <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="415" x:Name="stackPanel" Background="AliceBlue">
                 
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
-            <Calendar x:Name="Calendar" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185"></Calendar>
-            <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="25" Margin="0, 5"/>
-            <Button x:Name="Important" Content="Wichtig" Width="185" Height="25" Margin="0, 5"/>
-            <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="25" Margin="0, 5"/>
-            <Button x:Name="Notes" Content="Notizen" Width="185" Height="25" Margin="0, 5"/>
-            <Button x:Name="Events" Content="Events" Width="185" Height="25" Margin="0, 5"/>
+            <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185"></Calendar>
+            <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
+            <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
+            <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="30" Margin="0, 5"/>
+            <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5"/>
+            <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
-
+        <!--SelectedDate="" Binding needed-->
+        <!--SelectedDatesChanged="Calendar_SelectedDatesChanged" Binding needed-->
+        <!--Style CalendarButton Binding needed-->
     </Grid>
 </Window>
