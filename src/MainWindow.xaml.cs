@@ -21,6 +21,7 @@ namespace Kalender_Project_FlorianRohat
             toDoCollection = new ToDoCollection();
             firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
             DisplayTime();
+            Calendar.SelectedDate = DateTime.Today;
             LoadTodos();
         }
 
