@@ -41,7 +41,6 @@
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
         <!--SelectedDate="" Binding needed-->
-        <!--SelectedDatesChanged="Calendar_SelectedDatesChanged" Binding needed-->
         <!--Style CalendarButton Binding needed-->
     </Grid>
 </Window>

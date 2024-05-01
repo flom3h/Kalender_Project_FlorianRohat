@@ -3,6 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Microsoft.Win32;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -11,22 +13,29 @@ namespace Kalender_Project_FlorianRohat
     /// </summary>
     public partial class MainWindow : Window
     {
-        ToDoCollection toDoCollection = new ToDoCollection();
+        private ToDoCollection toDoCollection;
+        private FirebaseClient firebaseClient;
         public MainWindow()
         {
             InitializeComponent();
+            toDoCollection = new ToDoCollection();
+            firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
             DisplayTime();
+            LoadTodos();
         }
 
-        private void AddClick(object sender, RoutedEventArgs e)
+        private async void AddClick(object sender, RoutedEventArgs e)
         {
             AddTodoWindow addTodoWindow = new AddTodoWindow();
             if (addTodoWindow.ShowDialog() == true)
             {
-                toDoCollection.Add(addTodoWindow.Todo);
+                var addedTodo = await firebaseClient
+                    .Child("Todo")
+                    .PostAsync(addTodoWindow.Todo);
+                toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
                 if (Calendar.SelectedDate.HasValue)
                 {
-                    toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value);
+                    toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
                 }
                 else
                 {
@@ -52,6 +61,26 @@ namespace Kalender_Project_FlorianRohat
             }
         }
 
+        private async void LoadTodos()
+        {
+            var todos = await firebaseClient
+                .Child("Todo")
+                .OnceAsync<ToDo>();
+            
+            foreach (var todo in todos)
+            {
+                toDoCollection.Add(todo.Object, todo.Key);
+            }
+            if (Calendar.SelectedDate.HasValue)
+            {
+                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
+            }
+            else
+            {
+                MessageBox.Show("Bitte wählen Sie ein Datum aus", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void DisplayTime()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -68,11 +97,11 @@ namespace Kalender_Project_FlorianRohat
         {
             if (Calendar.SelectedDate.HasValue)
             {
-                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value);
+                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
             }
             else
             {
-                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value);
+                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
             }
         }
     }
