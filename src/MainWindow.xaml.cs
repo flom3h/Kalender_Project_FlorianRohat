@@ -5,6 +5,10 @@ using System.Windows.Threading;
 using Microsoft.Win32;
 using Firebase.Database;
 using Firebase.Database.Query;
+using System.Globalization;
+using System.Windows.Data;
+using System.Windows.Media;
+
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -13,16 +17,21 @@ namespace Kalender_Project_FlorianRohat
     /// </summary>
     public partial class MainWindow : Window
     {
-        private ToDoCollection toDoCollection;
+        public ToDoCollection toDoCollection;
         private FirebaseClient firebaseClient;
+        public ColorConverter colorConverter;
         public MainWindow()
         {
             InitializeComponent();
             toDoCollection = new ToDoCollection();
+            colorConverter = new ColorConverter();
             firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
             DisplayTime();
             Calendar.SelectedDate = DateTime.Today;
+            Calendar.DataContext = toDoCollection;
             LoadTodos();
+
+            Application.Current.Properties["ToDoCollection"] = toDoCollection;
         }
 
         private async void AddClick(object sender, RoutedEventArgs e)

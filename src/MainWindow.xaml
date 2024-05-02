@@ -7,6 +7,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+        <local:ColorConverter x:Key="ColorConverter"/>
+
+        <Style TargetType="CalendarDayButton">
+            <Setter Property="Background" Value="{Binding RelativeSource={RelativeSource Self}, Path=Date, Converter={StaticResource ColorConverter}}"/>
+        </Style>
+
         <Style TargetType="Calendar">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="White"/>
@@ -33,7 +39,9 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
-            <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185"></Calendar>
+            <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185">
+                
+            </Calendar>
             <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="30" Margin="0, 5"/>
