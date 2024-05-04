@@ -17,21 +17,17 @@ namespace Kalender_Project_FlorianRohat
     /// </summary>
     public partial class MainWindow : Window
     {
-        public ToDoCollection toDoCollection;
+        public static ToDoCollection toDoCollection;
         private FirebaseClient firebaseClient;
-        public ColorConverter colorConverter;
         public MainWindow()
         {
             InitializeComponent();
             toDoCollection = new ToDoCollection();
-            colorConverter = new ColorConverter();
             firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
             DisplayTime();
             Calendar.SelectedDate = DateTime.Today;
             Calendar.DataContext = toDoCollection;
             LoadTodos();
-
-            Application.Current.Properties["ToDoCollection"] = toDoCollection;
         }
 
         private async void AddClick(object sender, RoutedEventArgs e)
@@ -51,6 +47,8 @@ namespace Kalender_Project_FlorianRohat
                 {
                     MessageBox.Show("Bitte wählen Sie ein Datum aus", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
+
+                Calendar.UpdateLayout();
             }
         }
         

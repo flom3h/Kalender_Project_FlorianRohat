@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using Firebase.Database;
 using System.Windows.Media;
 using Firebase.Database.Query;
+using System.Linq;
+
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -41,6 +43,11 @@ namespace Kalender_Project_FlorianRohat
                     stream.WriteLine(jsonStr);
                 }
             }
+        }
+
+        public bool Any(Func<ToDo, bool> predicate)
+        {
+            return this.Any(predicate);
         }
 
         public void Draw(StackPanel stackPanel, DateTime selectedDate, FirebaseClient firebaseClient)

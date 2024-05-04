@@ -12,7 +12,6 @@ namespace Kalender_Project_FlorianRohat
         public string Title { get; set; }
         public bool IsDone { get; set; }
         public DateTime TodoDate { get; set; }
-
         public ToDo() { }
         
 
