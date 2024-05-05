@@ -45,9 +45,9 @@ namespace Kalender_Project_FlorianRohat
             }
         }
 
-        public bool Any(Func<ToDo, bool> predicate)
+        public bool Any(DateTime date)
         {
-            return this.Any(predicate);
+            return ToDoList.Any(todo => todo.TodoDate.Date == date.Date);
         }
 
         public void Draw(StackPanel stackPanel, DateTime selectedDate, FirebaseClient firebaseClient)

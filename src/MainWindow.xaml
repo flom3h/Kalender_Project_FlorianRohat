@@ -8,30 +8,6 @@
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
         <local:ColorConverter x:Key="ColorConverter"/>
-        
-        <Style TargetType="CalendarDayButton" x:Key="CalendarDayButtonStyle">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="CalendarDayButton">
-                        <Border x:Name="day" CornerRadius="5" Width="50" Height="20">
-                            <ContentPresenter x:Name="presenter" 
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center"
-                                    TextElement.FontSize="12"/>
-                        </Border>
-                        <ControlTemplate.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="day" Property="Background" Value="red"/>
-                            </Trigger>
-                            <Trigger Property="IsToday" Value="True">
-                                <Setter TargetName="day" Property="Background" Value="Bisque"/>
-                            </Trigger>
-                        </ControlTemplate.Triggers>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
         <Style TargetType="Calendar">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="White"/>
@@ -58,14 +34,22 @@
             </StackPanel>
         </StackPanel>
         <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
-            <Calendar x:Name="Calendar" SelectedDate="{Binding SelectedDate}" SelectedDatesChanged="DateChange" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185" CalendarDayButtonStyle="{StaticResource CalendarDayButtonStyle}"/>
+            <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185">
+                <Calendar.CalendarDayButtonStyle>
+                    <Style TargetType="CalendarDayButton">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Converter={StaticResource ColorConverter}}" Value="True">
+                                <Setter Property="Background" Value="Green"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Calendar.CalendarDayButtonStyle>
+            </Calendar>
             <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
-        <!--SelectedDate="" Binding needed-->
-        <!--Style CalendarButton Binding needed-->
     </Grid>
 </Window>
