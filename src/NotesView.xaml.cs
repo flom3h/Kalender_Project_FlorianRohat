@@ -12,7 +12,9 @@ public partial class NotesView : Page
 
     private void DisplayHome(object sender, RoutedEventArgs e)
     {
-        MainWindow mainWindow = new MainWindow();
-        this.Content = mainWindow;
+        if (this.NavigationService.CanGoBack)
+        {
+            this.NavigationService.GoBack();
+        }
     }
 }

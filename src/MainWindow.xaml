@@ -22,6 +22,8 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         
+        <Frame x:Name="MainFrame"/>
+        
         <StackPanel Grid.Column="1" >
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
                 <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
@@ -51,5 +53,6 @@
             <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" Click="DisplayNotes"/>
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
+        <!-- Use Pages to navigate instead of MainWindow, implement Frame -->
     </Grid>
 </Window>
