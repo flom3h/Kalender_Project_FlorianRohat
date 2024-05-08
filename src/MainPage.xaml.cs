@@ -11,7 +11,6 @@ public partial class MainPage : Page
 {
     public static ToDoCollection toDoCollection;
     private FirebaseClient firebaseClient;
-    private NotesView notesView;
     public static event EventHandler NotesButtonClicked;
     public MainPage()
     {
