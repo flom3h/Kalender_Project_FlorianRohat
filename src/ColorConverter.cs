@@ -10,7 +10,7 @@ namespace Kalender_Project_FlorianRohat
         {
             if (value is DateTime date)
             {
-                return MainWindow.toDoCollection.Any(date);
+                return MainPage.toDoCollection.Any(date);
             }
             return false;
         }

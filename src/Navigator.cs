@@ -1,21 +1,26 @@
-﻿namespace Kalender_Project_FlorianRohat;
+﻿using System;
+using System.Windows;
+using System.Windows.Navigation;
 
-public static class Navigator
+namespace Kalender_Project_FlorianRohat
 {
-    private static NavigationService NavigationService {get;} = (Application.Current.MainWindow as MainWindow).mainFrame.NavigationService;
-
-    public static void Navigate(string path, object param = null)
+    public static class Navigator
     {
-        NavigationService.Navigate(new Uri(path, UriKind.RelativeOrAbsolute), param);
-    }
+        private static NavigationService NavigationService { get; } = ((MainWindow)Application.Current.MainWindow).MainFrame.NavigationService;
 
-    public static void GoBack()
-    {
-        NavigationService.GoBack();
-    }
+        public static void Navigate(string path, object param = null)
+        {
+            NavigationService.Navigate(new Uri(path, UriKind.RelativeOrAbsolute), param);
+        }
 
-    public static void GoForward()
-    {
-        NavigationService.GoForward();
+        public static void GoBack()
+        {
+            NavigationService.GoBack();
+        }
+
+        public static void GoForward()
+        {
+            NavigationService.GoForward();
+        }
     }
 }
