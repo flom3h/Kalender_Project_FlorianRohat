@@ -48,7 +48,7 @@
             <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="30" Margin="0, 5"/>
-            <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5"/>
+            <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" Click="DisplayNotes"/>
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
     </Grid>

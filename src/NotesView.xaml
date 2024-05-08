@@ -1,0 +1,40 @@
+﻿<Page x:Class="Kalender_Project_FlorianRohat.NotesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
+      mc:Ignorable="d"
+      Title="NotesView" Height="450" Width="800">
+        <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+            
+
+
+        <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
+            <Label Content="Notes" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
+            <Button x:Name="Home" Content="Home" Width="150" Height="30" Margin="0, 4" Click="DisplayHome"/>
+            <Button x:Name="DayView" Content="Mein Tag" Width="150" Height="30" Margin="0, 5"/>
+            <Button x:Name="Important" Content="Wichtig" Width="150" Height="30" Margin="0, 5"/>
+            <Button x:Name="CalendarView" Content="Kalendar" Width="150" Height="30" Margin="0, 5"/>
+            <Button x:Name="Events" Content="Events" Width="150" Height="30" Margin="0, 5"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Background="Azure">
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
+                <Button x:Name="Add" Content="Add" Width="140" Margin="5"/>
+                <Button x:Name="Save" Content="Save" Width="140" Margin="5"/>
+                <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Grid.ColumnSpan="1" Background="LightSteelBlue" Orientation="Vertical" HorizontalAlignment="Left" Width="150" Height="420">
+            
+            </StackPanel>
+        </StackPanel>
+
+
+    </Grid>
+</Page>

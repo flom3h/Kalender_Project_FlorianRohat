@@ -68,6 +68,12 @@ namespace Kalender_Project_FlorianRohat
 
             }
         }
+        
+        private void DisplayNotes(object sender, RoutedEventArgs e)
+        {
+            NotesView notesView = new NotesView();
+            this.Content = notesView;
+        }
 
         private async void LoadTodos()
         {
