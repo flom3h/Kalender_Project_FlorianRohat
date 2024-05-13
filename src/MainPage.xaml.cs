@@ -104,7 +104,6 @@ public partial class MainPage : Page
         timer.Start();
     }
 
-
     private void DateChange(object? sender, SelectionChangedEventArgs e)
     {
         if (Calendar.SelectedDate.HasValue)

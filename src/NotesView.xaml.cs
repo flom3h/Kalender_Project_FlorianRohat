@@ -10,6 +10,11 @@ public partial class NotesView : Page
         InitializeComponent();
     }
 
+    private async void AddNote(object sender, RoutedEventArgs e)
+    {
+        
+    }
+
     private void DisplayHome(object sender, RoutedEventArgs e)
     {
         if (this.NavigationService.CanGoBack)

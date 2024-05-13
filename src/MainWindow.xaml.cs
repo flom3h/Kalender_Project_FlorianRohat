@@ -19,7 +19,7 @@ namespace Kalender_Project_FlorianRohat
         {
             NotesView notesView = new NotesView();
             MainFrame.Navigate(notesView);
-        }
+        } 
         
         private void DisplayCalendar(object sendefr, System.EventArgs e)
         {
