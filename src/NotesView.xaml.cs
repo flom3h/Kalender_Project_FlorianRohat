@@ -1,6 +1,8 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Threading;
+using Firebase.Database;
+using Firebase.Database.Query;
 using Microsoft.Win32;
 
 namespace Kalender_Project_FlorianRohat;
@@ -8,13 +10,16 @@ namespace Kalender_Project_FlorianRohat;
 public partial class NotesView : Page
 {
     public static NotesCollection notesCollection;
+    private FirebaseClient firebaseClient;
     public Note openedNote;
     
     public NotesView()
     {
         InitializeComponent();
         notesCollection = new NotesCollection();
+        firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
         DisplayTime();
+        LoadNotes();
     }
 
     private async void AddNote(object sender, RoutedEventArgs e)
@@ -22,17 +27,25 @@ public partial class NotesView : Page
         AddNote addNote = new AddNote();
         if (addNote.ShowDialog() == true)
         {
-            notesCollection.Add(addNote.note);
-            notesCollection.Draw(NoteButtonPanel, this);
+            var addedNote = await firebaseClient
+                .Child("Notes")
+                .PostAsync(addNote.note);
+            notesCollection.Add(addNote.note, addedNote.Key);
+            notesCollection.Draw(NoteButtonPanel, this, firebaseClient);
         }
     }
 
-    private void DeleteNote(object sender, RoutedEventArgs e)
+    private async void DeleteNote(object sender, RoutedEventArgs e)
     {
         if (openedNote != null)
         {
+            string key = notesCollection.NoteKeys[openedNote];
+            await firebaseClient
+                .Child("Notes")
+                .Child(key)
+                .DeleteAsync();
             notesCollection.Remove(openedNote);
-            notesCollection.Draw(NoteButtonPanel, this);
+            notesCollection.Draw(NoteButtonPanel, this, firebaseClient);
             NoteTextBox.Text = string.Empty;
             NoteTextBox.IsEnabled = false;
             openedNote = null;
@@ -85,7 +98,20 @@ public partial class NotesView : Page
     {
         if (openedNote != null)
         {
-            notesCollection.Edit(openedNote, openedNote.Title, NoteTextBox.Text);
+            notesCollection.Edit(openedNote, openedNote.Title, NoteTextBox.Text, firebaseClient);
         }
+    }
+
+    private async void LoadNotes()
+    {
+        var notes = await firebaseClient
+            .Child("Notes")
+            .OnceAsync<Note>();
+
+        foreach (var note in notes)
+        {
+            notesCollection.Add(note.Object, note.Key);
+        }
+        notesCollection.Draw(NoteButtonPanel, this, firebaseClient);
     }
 }

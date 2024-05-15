@@ -1,36 +1,50 @@
 ﻿using System.IO;
-using System.Net.Mime;
-using System.Text.Json;
 using System.Windows.Controls;
+using Firebase.Database;
+using Firebase.Database.Query;
 
 namespace Kalender_Project_FlorianRohat;
 
 public class NotesCollection
 {
     public List<Note> NotesList { get; set; } = new List<Note>();
-    private Dictionary<Note, string> NoteKeys = new Dictionary<Note, string>();
+    public Dictionary<Note, string> NoteKeys = new Dictionary<Note, string>();
 
-    public void Add(Note note)
+    public void Add(Note note, string key)
     {
         NotesList.Add(note);
+        NoteKeys[note] = key;
     }
 
     public void Remove(Note note)
     {
         NotesList.Remove(note);
+        NoteKeys.Remove(note);
     }
 
-    public void Edit(Note note, string title, string text)
+    public async void Edit(Note note, string title, string text, FirebaseClient firebaseClient)
     {
         note.Title = title;
         note.Text = text;
+        
+        string key = NoteKeys[note];
+        await firebaseClient
+            .Child("Notes")
+            .Child(key)
+            .PutAsync(note);
     }
 
-    public void Draw(StackPanel NoteButtonPanel, NotesView notesView)
+    public async void Draw(StackPanel NoteButtonPanel, NotesView notesView, FirebaseClient firebaseClient)
     {
         NoteButtonPanel.Children.Clear();
+        
+        var notes = await firebaseClient
+            .Child("Notes")
+            .OnceAsync<Note>();
+        
         foreach (Note note in NotesList)
         {
+            string key = NoteKeys[note];
             NoteItemControl noteItemControl = new NoteItemControl();
             noteItemControl.NoteTitle.Text = note.Title;
             noteItemControl.NoteButton.Click += (s, e) =>
