@@ -7,19 +7,14 @@
              mc:Ignorable="d"
              d:DesignHeight="50" d:DesignWidth="153">
     <Grid>
-        <Button x:Name="ShowNote" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+        <Button x:Name="NoteButton" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="NoteTitle" Text="Note Title" FontWeight="Bold" FontSize="15" Margin="2"/>
-                <TextBlock x:Name="NoteTextDemo" Grid.Row="1" Text="Note Text" FontSize="10" Margin="2"/>
-                <Label Grid.RowSpan="2" Content=">" Grid.Column="1" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock x:Name="NoteTitle" Text="Note Title" FontWeight="Bold" FontSize="15" Margin="2" VerticalAlignment="Center"/>
+                <Label Content=">" Grid.Column="1" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Button>
     </Grid>

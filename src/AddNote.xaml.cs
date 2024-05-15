@@ -10,7 +10,6 @@ public partial class AddNote : Window
         InitializeComponent();
         note = new Note();
         NoteTitleInput.Text = note.Title;
-        NoteContentInput.Text = note.Text;
     }
     
     public AddNote (Note noteToEdit)
@@ -18,15 +17,13 @@ public partial class AddNote : Window
         InitializeComponent();
         note = noteToEdit;
         NoteTitleInput.Text = note.Title;
-        NoteContentInput.Text = note.Text;
     }
     
     private void CreateNote(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrEmpty(NoteTitleInput.Text) == false && string.IsNullOrEmpty(NoteContentInput.Text) == false)
+        if (string.IsNullOrEmpty(NoteTitleInput.Text) == false)
         {
             note.Title = NoteTitleInput.Text;
-            note.Text = NoteContentInput.Text;
             DialogResult = true;
         }
         else

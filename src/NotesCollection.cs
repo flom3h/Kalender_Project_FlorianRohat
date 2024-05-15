@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Net.Mime;
 using System.Text.Json;
 using System.Windows.Controls;
 
@@ -25,27 +26,30 @@ public class NotesCollection
         note.Text = text;
     }
 
-    public void Draw(StackPanel NoteButtonPanel)
+    public void Draw(StackPanel NoteButtonPanel, NotesView notesView)
     {
         NoteButtonPanel.Children.Clear();
         foreach (Note note in NotesList)
         {
             NoteItemControl noteItemControl = new NoteItemControl();
             noteItemControl.NoteTitle.Text = note.Title;
-            noteItemControl.NoteTextDemo.Text = note.Text.Length > 50 ? note.Text.Substring(0, 50) : note.Text;
+            noteItemControl.NoteButton.Click += (s, e) =>
+            {
+                notesView.NoteTextBox.IsEnabled = true;
+                notesView.openedNote = note;
+                notesView.NoteTextBox.Text = note.Text;
+            };
             NoteButtonPanel.Children.Add(noteItemControl);
         }
     }
-    
-    public void Serialize(string filename)
+
+    public void Export(Note note, string filename)
     {
         using (StreamWriter stream = new StreamWriter(filename))
         {
-            foreach (var note in NotesList)
-            {
-                string jsonStr = JsonSerializer.Serialize(note);
-                stream.WriteLine(jsonStr);
-            }
+            stream.WriteLine(note.Title);
+            stream.WriteLine();
+            stream.WriteLine(note.Text);
         }
     }
 }
