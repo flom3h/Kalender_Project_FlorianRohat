@@ -108,5 +108,10 @@ namespace Kalender_Project_FlorianRohat
                 
             }
         }
+        
+        public int DrawDay(DateTime date)
+        {
+            return ToDoList.Count(todo => todo.TodoDate.Date == date.Date);
+        }
     }
 }
