@@ -4,9 +4,17 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
-        Title="AddNote" Height="450" Width="800">
-    <Grid>
-        
+        Title="AddNote" Height="130" Width="200">
+    <Grid Background="Beige">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <xctk:WatermarkTextBox x:Name="NoteTitleInput" Width="180" Margin="10" Watermark="Titel deiner Notiz..."/>
+        <xctk:WatermarkTextBox Grid.Row="1" x:Name="NoteContentInput" Width="180" Margin="10" Watermark="Inhalt deiner Notiz..."/>
+        <Button Grid.Row="2" x:Name="CreateButton" Content="Erstellen" Width="60" Margin="10" Click="CreateNote"/>
     </Grid>
 </Window>

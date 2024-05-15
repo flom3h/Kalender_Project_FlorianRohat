@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Text.Json;
+using System.Windows.Controls;
 
 namespace Kalender_Project_FlorianRohat;
 
@@ -22,6 +23,18 @@ public class NotesCollection
     {
         note.Title = title;
         note.Text = text;
+    }
+
+    public void Draw(StackPanel NoteButtonPanel)
+    {
+        NoteButtonPanel.Children.Clear();
+        foreach (Note note in NotesList)
+        {
+            NoteItemControl noteItemControl = new NoteItemControl();
+            noteItemControl.NoteTitle.Text = note.Title;
+            noteItemControl.NoteTextDemo.Text = note.Text.Length > 50 ? note.Text.Substring(0, 50) : note.Text;
+            NoteButtonPanel.Children.Add(noteItemControl);
+        }
     }
     
     public void Serialize(string filename)

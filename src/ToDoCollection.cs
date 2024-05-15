@@ -4,8 +4,6 @@ using System.Windows.Controls;
 using Firebase.Database;
 using System.Windows.Media;
 using Firebase.Database.Query;
-using System.Linq;
-
 
 namespace Kalender_Project_FlorianRohat
 {
