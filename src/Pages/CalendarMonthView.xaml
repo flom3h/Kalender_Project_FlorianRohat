@@ -8,7 +8,7 @@
       mc:Ignorable="d"
       Title="CalendarMonthView" Height="450" Width="800">
     <Page.Resources>
-        <local:ColorConverter x:Key="ColorConverter"/>
+        <local:ColorConverterCurrentDay x:Key="ColorConverterCurrentDay"/>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,21 +19,12 @@
                 
         
         <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
-            <Calendar x:Name="Calendar" VerticalAlignment="Top" HorizontalAlignment="Left" Height="165" Width="185">
-                <Calendar.CalendarDayButtonStyle>
-                    <Style TargetType="CalendarDayButton">
-                        <Style.Triggers>
-                            <DataTrigger Binding="{Binding Converter={StaticResource ColorConverter}}" Value="True">
-                                <Setter Property="Background" Value="Green"/>
-                            </DataTrigger>
-                        </Style.Triggers>
-                    </Style>
-                </Calendar.CalendarDayButtonStyle>
-            </Calendar>   
+            <Label Content="Kalender" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
+
             
             <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
-            <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="30" Margin="0, 5" />
+            <Button x:Name="Home" Content="Home" Width="185" Height="30" Margin="0, 5" Click="DisplayHome"/>
             <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" />
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
@@ -44,7 +35,7 @@
                 <Button x:Name="NextMonthButton" Content="Next Month" Width="140" Margin="5" Click="NextMonth_Click"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
-                <Button x:Name="Add" Content="Add" Width="140" Margin="5"/>
+                <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
                 <Button x:Name="Save" Content="Save" Width="140" Margin="5"/>
                 <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
                 <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
@@ -82,7 +73,18 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="Black" BorderThickness="1" Width="85" Height="85">
-                                <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="White"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding Converter={StaticResource ColorConverterCurrentDay}}" Value="True">
+                                                <Setter Property="Background" Value="BlueViolet"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                
+                                <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
