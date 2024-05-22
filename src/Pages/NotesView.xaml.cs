@@ -11,7 +11,7 @@ public partial class NotesView : Page
 {
     public static NotesCollection notesCollection;
     private FirebaseClient firebaseClient;
-    public Note openedNote;
+    public Note? openedNote;
     
     public NotesView()
     {
@@ -46,13 +46,18 @@ public partial class NotesView : Page
                 .DeleteAsync();
             notesCollection.Remove(openedNote);
             notesCollection.Draw(NoteButtonPanel, this, firebaseClient);
+            openedNote = null;
             NoteTextBox.Text = string.Empty;
             NoteTextBox.IsEnabled = false;
-            openedNote = null;
         }
         else
         {
             MessageBox.Show("No note is currently opened", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+
+        if (openedNote == null)
+        {
+            WatermarkText.Text = "Klick auf eine Notiz um diese zu Öffnen";
         }
     }
     
@@ -96,6 +101,18 @@ public partial class NotesView : Page
 
     private void NoteTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
+        foreach (NoteItemControl control in NoteButtonPanel.Children)
+        {
+            if (control.NoteTitle.Text == openedNote?.Title)
+            {
+                control.NoteTitle.FontWeight = FontWeights.Bold;
+            }
+            else
+            {
+                control.NoteTitle.FontWeight = FontWeights.Normal;
+            }
+        }
+
         if (openedNote != null)
         {
             notesCollection.Edit(openedNote, openedNote.Title, NoteTextBox.Text, firebaseClient);
@@ -113,5 +130,9 @@ public partial class NotesView : Page
             notesCollection.Add(note.Object, note.Key);
         }
         notesCollection.Draw(NoteButtonPanel, this, firebaseClient);
+        if (openedNote == null)
+        {
+            WatermarkText.Text = "Klick auf eine Notiz um diese zu Öffnen";
+        }
     }
 }

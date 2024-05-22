@@ -13,7 +13,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="30"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock x:Name="NoteTitle" Text="Note Title" FontWeight="Bold" FontSize="15" Margin="2" VerticalAlignment="Center"/>
+                <TextBlock x:Name="NoteTitle" Text="Note Title" FontSize="15" Margin="2" VerticalAlignment="Center"/>
                 <Label Content=">" Grid.Column="1" FontSize="15" FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Button>

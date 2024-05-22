@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using Firebase.Database;
 using Firebase.Database.Query;
@@ -24,14 +25,21 @@ public class NotesCollection
 
     public async void Edit(Note note, string title, string text, FirebaseClient firebaseClient)
     {
-        note.Title = title;
-        note.Text = text;
-        
-        string key = NoteKeys[note];
-        await firebaseClient
-            .Child("Notes")
-            .Child(key)
-            .PutAsync(note);
+        if (NoteKeys.ContainsKey(note))
+        {
+            note.Title = title;
+            note.Text = text;
+
+            string key = NoteKeys[note];
+            await firebaseClient
+                .Child("Notes")
+                .Child(key)
+                .PutAsync(note);
+        }
+        else
+        {
+            throw new Exception("The note does not exist in the collection");
+        }
     }
 
     public async void Draw(StackPanel NoteButtonPanel, NotesView notesView, FirebaseClient firebaseClient)

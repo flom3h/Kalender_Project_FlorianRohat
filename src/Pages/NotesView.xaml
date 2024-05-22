@@ -31,7 +31,7 @@
                 <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
             </StackPanel>
             <StackPanel DockPanel.Dock="Left" Background="LightSteelBlue" Orientation="Vertical" HorizontalAlignment="Left" Width="153" Height="420" x:Name="NoteButtonPanel">
-            
+                <TextBlock x:Name="WatermarkText" HorizontalAlignment="Center" VerticalAlignment="Center" Opacity="0.5" FontStyle="Italic"/>
             </StackPanel>
             <TextBox x:Name="NoteTextBox" DockPanel.Dock="Top" Background="Lavender" IsEnabled="False" TextChanged="NoteTextBox_OnTextChanged"/>
         </DockPanel>
