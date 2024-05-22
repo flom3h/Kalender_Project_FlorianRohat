@@ -75,8 +75,6 @@ public partial class MainPage : Page
 
     private async void LoadTodos()
     {
-        toDoCollection.Clear(); 
-
         var todos = await firebaseClient
             .Child("Todo")
             .OnceAsync<ToDo>();
@@ -120,8 +118,4 @@ public partial class MainPage : Page
         }
     }
     
-    private void Page_Loaded(object sender, RoutedEventArgs e)
-    {
-        LoadTodos();
-    }
 }

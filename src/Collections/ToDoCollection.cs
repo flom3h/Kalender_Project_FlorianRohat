@@ -111,11 +111,6 @@ namespace Kalender_Project_FlorianRohat
             }
         }
         
-        public void Clear()
-        {
-            ToDoList.Clear();
-            TodoKeys.Clear();
-        }
         public int DrawDay(DateTime date)
         {
             return ToDoList.Count(todo => todo.TodoDate.Date == date.Date);

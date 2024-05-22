@@ -5,8 +5,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
       mc:Ignorable="d"
-      Title="MainPage" Height="450" Width="800"
-      Loaded="Page_Loaded">
+      Title="MainPage" Height="450" Width="800">
     <Page.Resources>
         <local:ColorConverter x:Key="ColorConverter"/>
         <Style TargetType="Calendar">
