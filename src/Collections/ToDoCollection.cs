@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿
+using System.IO;
 using System.Text.Json;
 using System.Windows.Controls;
 using Firebase.Database;
@@ -11,12 +12,14 @@ namespace Kalender_Project_FlorianRohat
     {
         public List<ToDo> ToDoList { get; set; } = new List<ToDo>();
         private Dictionary<ToDo, string> TodoKeys = new Dictionary<ToDo, string>();
+        public event EventHandler TodoAdded;
 
         
         public void Add(ToDo todo, string key)
         {
             ToDoList.Add(todo);
             TodoKeys[todo] = key;
+            TodoAdded?.Invoke(this, EventArgs.Empty);
         }
 
         public void Remove(ToDo todo)
@@ -105,10 +108,15 @@ namespace Kalender_Project_FlorianRohat
                     }
                     stackPanel.Children.Add(todoItemControl);
                 }
-                
             }
         }
         
+        public void Clear()
+        {
+            ToDoList.Clear();
+            TodoKeys.Clear();
+            TodoAdded?.Invoke(this, EventArgs.Empty);
+        }
         public int DrawDay(DateTime date)
         {
             return ToDoList.Count(todo => todo.TodoDate.Date == date.Date);

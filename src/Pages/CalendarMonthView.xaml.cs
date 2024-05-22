@@ -1,21 +1,22 @@
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using Firebase.Database;
 using Firebase.Database.Query;
+using System.Collections.ObjectModel;
 
 namespace Kalender_Project_FlorianRohat
 {
-    public partial class CalendarMonthView : Page
+    public partial class CalendarMonthView : Page, INotifyPropertyChanged
     {
         public static ToDoCollection toDoCollection;
         private FirebaseClient firebaseClient;
+        private DateTime currentDate;
+
         public List<string> DaysOfWeek { get; set; }
-        private List<CalendarDay> _days;
-        public List<CalendarDay> Days
+        private ObservableCollection<CalendarDay> _days;
+        public ObservableCollection<CalendarDay> Days
         {
             get { return _days; }
             set
@@ -27,30 +28,47 @@ namespace Kalender_Project_FlorianRohat
                 }
             }
         }
-        private DateTime currentDate;
         
         
         public CalendarMonthView()
         {
             InitializeComponent();
+            DataContext = this;
+
             toDoCollection = new ToDoCollection();
+            toDoCollection.TodoAdded += OnTodoAdded; // Subscribe to the event
             firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
-            
             
             DaysOfWeek = new List<string> { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
 
             currentDate = DateTime.Today;
-            _days = new List<CalendarDay>();
+            _days = new ObservableCollection<CalendarDay>();
+            LoadTodosAsync(); // Call the method to load todos asynchronously
             FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
-
-            DataContext = this;
+            
         }
         
+        private async void LoadTodosAsync()
+        {
+            await LoadTodos();
+        }
+
+        private async Task LoadTodos()
+        {
+            var todos = await firebaseClient
+                .Child("Todo")
+                .OnceAsync<ToDo>();
+    
+            foreach (var todo in todos)
+            {
+                toDoCollection.Add(todo.Object, todo.Key);
+            }
+        }
         
         private void FillDays(int year, int month, int day)
         {
             Days.Clear();
-            
+
             DateTime firstDayOfMonth = new DateTime(year, month, day);
             int offset = (int)firstDayOfMonth.DayOfWeek - 1; // -1 because DayOfWeek starts from Sunday as 0
             offset = offset < 0 ? 6 : offset; // if it's Sunday, set offset to 6
@@ -68,7 +86,7 @@ namespace Kalender_Project_FlorianRohat
             for (int i = 1; i <= daysInMonth; i++)
             {
                 DateTime date = new DateTime(year, month, i);
-                int tasksCount = MainPage.toDoCollection.DrawDay(date);
+                int tasksCount = toDoCollection.DrawDay(date);
                 Days.Add(new CalendarDay(date, tasksCount));
             }
 
@@ -79,8 +97,15 @@ namespace Kalender_Project_FlorianRohat
             {
                 Days.Add(new CalendarDay(new DateTime(nextMonth.Year, nextMonth.Month, i), 0));
             }
+            
+
         }
-        
+                
+        private void OnTodoAdded(object sender, EventArgs e)
+        {
+            FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
+        }
+
         private async void AddClick(object sender, RoutedEventArgs e)
         {
             AddTodoWindow addTodoWindow = new AddTodoWindow();
@@ -91,37 +116,14 @@ namespace Kalender_Project_FlorianRohat
                     .PostAsync(addTodoWindow.Todo);
                 toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
                 
-                FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
-                
             }
         }
-        private void DisplayHome(object sender, RoutedEventArgs e)
-        {
-            if (this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            }
-        }
-       
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-       
 
-        public event PropertyChangedEventHandler? PropertyChanged; // Declare PropertyChanged as nullable
+        public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName)); // Check if PropertyChanged is not null before invoking
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
         
         
@@ -136,7 +138,7 @@ namespace Kalender_Project_FlorianRohat
             NextMonth();
             OnPropertyChanged(nameof(Days));
         }
-
+        
         
         
         private void PreviousMonth()
@@ -149,5 +151,14 @@ namespace Kalender_Project_FlorianRohat
             PreviousMonth();
             OnPropertyChanged(nameof(Days));
         }
+        
+        private void DisplayHome(object sender, RoutedEventArgs e)
+        {
+            if (this.NavigationService.CanGoBack)
+            {
+                this.NavigationService.GoBack();
+            }
+        }
+
     }
 }

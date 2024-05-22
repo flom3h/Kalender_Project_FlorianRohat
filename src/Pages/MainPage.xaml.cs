@@ -79,6 +79,7 @@ public partial class MainPage : Page
             .Child("Todo")
             .OnceAsync<ToDo>();
         
+        toDoCollection.Clear();
         foreach (var todo in todos)
         {
             toDoCollection.Add(todo.Object, todo.Key);
@@ -92,6 +93,8 @@ public partial class MainPage : Page
             MessageBox.Show("Bitte wählen Sie ein Datum aus", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+    
+    
 
     private void DisplayTime()
     {
