@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using Firebase.Database;
 using Firebase.Database.Query;
 using System.Collections.ObjectModel;
+using System.Windows.Threading;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -33,6 +34,7 @@ namespace Kalender_Project_FlorianRohat
         public CalendarMonthView()
         {
             InitializeComponent();
+            DisplayTime();
             DataContext = this;
 
             toDoCollection = new ToDoCollection();
@@ -118,7 +120,18 @@ namespace Kalender_Project_FlorianRohat
                 
             }
         }
-
+        
+        private void DisplayTime()
+        {
+            DispatcherTimer timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(1);
+            timer.Tick += (sender, e) =>
+            {
+                DateDisplay.Content = DateTime.Now.ToString("hh:mm:ss tt");
+            };
+            timer.Start();
+        }
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

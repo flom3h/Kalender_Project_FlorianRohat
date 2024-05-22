@@ -11,7 +11,7 @@ namespace Kalender_Project_FlorianRohat
         {
             if (value is CalendarDay day)
             {
-                return day.Days.Date == DateTime.Today;
+                return day.Date.Date == DateTime.Today;
             }
             return false;
         }

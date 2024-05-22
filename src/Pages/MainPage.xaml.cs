@@ -75,11 +75,12 @@ public partial class MainPage : Page
 
     private async void LoadTodos()
     {
+        toDoCollection.Clear(); 
+
         var todos = await firebaseClient
             .Child("Todo")
             .OnceAsync<ToDo>();
         
-        toDoCollection.Clear();
         foreach (var todo in todos)
         {
             toDoCollection.Add(todo.Object, todo.Key);
@@ -117,5 +118,10 @@ public partial class MainPage : Page
         {
             toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
         }
+    }
+    
+    private void Page_Loaded(object sender, RoutedEventArgs e)
+    {
+        LoadTodos();
     }
 }

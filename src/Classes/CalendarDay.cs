@@ -2,29 +2,19 @@ namespace Kalender_Project_FlorianRohat
 {
     public class CalendarDay
     {
-        public DateTime Days { get; set; }
-        public int ToDos { get; set; }
+        public DateTime Date { get; set; }
+        public int TasksCount { get; set; }
         
-        public CalendarDay(DateTime days, int toDos)
+        public CalendarDay(DateTime date, int tasksCount)
         {
-            Days = days;
-            ToDos = toDos;
+            Date = date;
+            TasksCount = tasksCount;
         }
         
         public override string ToString()
         {
-            if (ToDos == 1)
-            {
-                return Days.Day.ToString() + "\n" + $"{ToDos} Aufgabe";
-            }
-            else if (ToDos > 1)
-            {
-                return Days.Day.ToString() + "\n" + $"{ToDos} Aufgaben";
-            }
-            else
-            {
-                return Days.Day.ToString();
-            }
+            return Date.Day.ToString();
+
         }
     }
 }

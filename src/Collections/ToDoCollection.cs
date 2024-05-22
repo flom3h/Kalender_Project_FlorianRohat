@@ -115,7 +115,6 @@ namespace Kalender_Project_FlorianRohat
         {
             ToDoList.Clear();
             TodoKeys.Clear();
-            TodoAdded?.Invoke(this, EventArgs.Empty);
         }
         public int DrawDay(DateTime date)
         {
