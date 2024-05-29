@@ -73,8 +73,13 @@ public partial class MainPage : Page
         CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
     }
 
+    private void OnTodoAdded(object sender, EventArgs e)
+    {
+        LoadTodos();
+    }
     private async void LoadTodos()
     {
+        
         var todos = await firebaseClient
             .Child("Todo")
             .OnceAsync<ToDo>();

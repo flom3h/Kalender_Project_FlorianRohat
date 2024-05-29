@@ -82,10 +82,12 @@
                                         </Style.Triggers>
                                     </Style>
                                 </Border.Style>
-                                
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Date.Day}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>
-                                    <TextBlock Text="{Binding TasksCount, Converter={StaticResource TaskCountConverter}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>                                </StackPanel>
+                                <Button Background="Transparent" Click="Day_Click" >
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Date.Day}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>
+                                        <TextBlock Text="{Binding TasksCount, Converter={StaticResource TaskCountConverter}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>   
+                                    </StackPanel>
+                                </Button>
                             </Border>
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>

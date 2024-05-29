@@ -102,7 +102,18 @@ namespace Kalender_Project_FlorianRohat
             
 
         }
-                
+        
+        private void Day_Click(object sender, RoutedEventArgs e)
+        {
+            // Get the clicked day
+            var button = (Button)sender;
+            var clickedDay = (CalendarDay)button.DataContext;
+
+            // Navigate to MainPage and set the selected date
+            var mainPage = new MainPage();
+            mainPage.Calendar.SelectedDate = clickedDay.Date;
+            this.NavigationService.Navigate(mainPage);
+        }
         private void OnTodoAdded(object sender, EventArgs e)
         {
             FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
@@ -167,10 +178,11 @@ namespace Kalender_Project_FlorianRohat
         
         private void DisplayHome(object sender, RoutedEventArgs e)
         {
-            if (this.NavigationService.CanGoBack)
-            {
-                this.NavigationService.GoBack();
-            }
+
+            var mainPage = new MainPage();
+            mainPage.Calendar.SelectedDate = currentDate;
+            this.NavigationService.Navigate(mainPage);
+            
         }
 
     }
