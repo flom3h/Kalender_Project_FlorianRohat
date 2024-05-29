@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using Firebase.Database;
 using System.Windows.Media;
 using Firebase.Database.Query;
+using System.Windows;
+using System.Threading.Tasks;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -110,7 +112,45 @@ namespace Kalender_Project_FlorianRohat
                 }
             }
         }
-        
+        public void ShowAllTodosGroupedByDate(StackPanel stackPanel, FirebaseClient firebaseClient)
+        {
+            // Clear the StackPanel
+            stackPanel.Children.Clear();
+
+            // Group the todos by date
+            var groupedTodos = ToDoList
+                .GroupBy(todo => todo.TodoDate) // Group by date
+                .OrderBy(group => group.Key); // Order by date
+
+            // Iterate over each group
+            foreach (var group in groupedTodos)
+            {
+                // Create a label for the date
+                Label dateLabel = new Label
+                {
+                    Content = group.Key.ToString("dd/MM/yyyy"),
+                    FontWeight = FontWeights.Bold,
+                    Margin = new Thickness(0, 10, 0, 0) // Add some margin at the top for spacing
+                };
+
+                // Add the date label to the StackPanel
+                stackPanel.Children.Add(dateLabel);
+
+                // Iterate over the todos in this group
+                foreach (var todo in group)
+                {
+                    // Create a label for the todo
+                    Label todoLabel = new Label
+                    {
+                        Content = todo.Title,
+                        Margin = new Thickness(0, 0, 0, 10) // Add some margin at the bottom for spacing
+                    };
+
+                    // Add the todo label to the StackPanel
+                    stackPanel.Children.Add(todoLabel);
+                }
+            }
+        }
         public int DrawDay(DateTime date)
         {
             return ToDoList.Count(todo => todo.TodoDate.Date == date.Date);

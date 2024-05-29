@@ -125,12 +125,12 @@ public partial class MainPage : Page
     
     private void GoToTodaysTodos(object sender, RoutedEventArgs e)
     {
-        Calendar.SelectedDate = DateTime.Today;
         toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
     }
     
     private void ShowAllTodos(object sender, RoutedEventArgs e)
     {
-        toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
+        toDoCollection.ShowAllTodosGroupedByDate(StackPanelItems, firebaseClient);
     }
+    
 }
