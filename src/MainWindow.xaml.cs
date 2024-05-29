@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Kalender_Project_FlorianRohat.Pages;
 
 
 namespace Kalender_Project_FlorianRohat
@@ -14,6 +15,7 @@ namespace Kalender_Project_FlorianRohat
             MainFrame.Navigate(new MainPage());
             MainPage.NotesButtonClicked += DisplayNotes;
             MainPage.CalendarButtonClicked += DisplayCalendar;
+            MainPage.EventButtonClicked += DisplayEvents;
         }
         private void DisplayNotes(object sendefr, System.EventArgs e)
         {
@@ -25,6 +27,12 @@ namespace Kalender_Project_FlorianRohat
         {
             CalendarMonthView monthView = new CalendarMonthView();
             MainFrame.Navigate(monthView);
+        }
+        
+        private void DisplayEvents (object sendefr, System.EventArgs e)
+        {
+            EventView eventView = new EventView();
+            MainFrame.Navigate(eventView);
         }
     }
 }

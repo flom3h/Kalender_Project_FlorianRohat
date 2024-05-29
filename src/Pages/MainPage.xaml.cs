@@ -13,6 +13,7 @@ public partial class MainPage : Page
     private FirebaseClient firebaseClient;
     public static event EventHandler NotesButtonClicked;
     public static event EventHandler CalendarButtonClicked;
+    public static event EventHandler EventButtonClicked; 
     public MainPage()
     {
         InitializeComponent();
@@ -73,13 +74,18 @@ public partial class MainPage : Page
         CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
     }
 
+    private void DisplayEvents(object sender, RoutedEventArgs e)
+    {
+        EventButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+
     private void OnTodoAdded(object sender, EventArgs e)
     {
         LoadTodos();
     }
+    
     private async void LoadTodos()
     {
-        
         var todos = await firebaseClient
             .Child("Todo")
             .OnceAsync<ToDo>();

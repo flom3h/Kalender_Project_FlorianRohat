@@ -11,8 +11,9 @@
         <Style TargetType="Calendar">
             <Setter Property="Background" Value="White"/>
             <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontFamily" Value="Your Desired Font"/>
+            <Setter Property="FontFamily" Value="Aharoni"/>
             <Setter Property="FontSize" Value="14"/>
+            <Setter Property="FontWeight" Value="Thin"/>
             <Setter Property="BorderThickness" Value="0"/>
         </Style>
     </Page.Resources>
@@ -52,7 +53,7 @@
             <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="CalendarView" Content="Kalendar" Width="185" Height="30" Margin="0, 5" Click="DisplayCalendar"/>
             <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" Click="DisplayNotes"/>
-            <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
+            <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5" Click="DisplayEvents"/>
         </StackPanel>
     </Grid>
 </Page>
