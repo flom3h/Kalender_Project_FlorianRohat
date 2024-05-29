@@ -35,7 +35,7 @@ public partial class MainPage : Page
             toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
             if (Calendar.SelectedDate.HasValue)
             {
-                toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
+                toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
             }
             else
             {
@@ -90,7 +90,7 @@ public partial class MainPage : Page
         }
         if (Calendar.SelectedDate.HasValue)
         {
-            toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
+            toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
         }
         else
         {
@@ -115,12 +115,22 @@ public partial class MainPage : Page
     {
         if (Calendar.SelectedDate.HasValue)
         {
-            toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
+            toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
         }
         else
         {
-            toDoCollection.Draw(stackPanel, Calendar.SelectedDate.Value, firebaseClient);
+            toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
         }
     }
     
+    private void GoToTodaysTodos(object sender, RoutedEventArgs e)
+    {
+        Calendar.SelectedDate = DateTime.Today;
+        toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
+    }
+    
+    private void ShowAllTodos(object sender, RoutedEventArgs e)
+    {
+        toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
+    }
 }

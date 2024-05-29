@@ -86,6 +86,7 @@ namespace Kalender_Project_FlorianRohat
                             .Child("Todo")
                             .Child(key)
                             .DeleteAsync();
+                        
                     };
                     todoItemControl.EditButton.Click += async (sender, e) =>
                     {

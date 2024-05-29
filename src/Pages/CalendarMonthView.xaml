@@ -9,9 +9,9 @@
       Title="CalendarMonthView" Height="450" Width="800">
     <Page.Resources>
         <local:ColorConverterCurrentDay x:Key="ColorConverterCurrentDay"/>
-        <local:TaskCountConverter x:Key="TaskCountConverter"/> <!-- Add this line -->
-
+        <local:TaskCountConverter x:Key="TaskCountConverter"/>
     </Page.Resources>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="185"/>
