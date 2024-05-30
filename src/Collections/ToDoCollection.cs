@@ -114,40 +114,78 @@ namespace Kalender_Project_FlorianRohat
         }
         public void ShowAllTodosGroupedByDate(StackPanel stackPanel, FirebaseClient firebaseClient)
         {
-            // Clear the StackPanel
             stackPanel.Children.Clear();
 
-            // Group the todos by date
             var groupedTodos = ToDoList
-                .GroupBy(todo => todo.TodoDate) // Group by date
-                .OrderBy(group => group.Key); // Order by date
+                .GroupBy(todo => todo.TodoDate) 
+                .OrderBy(group => group.Key); 
 
-            // Iterate over each group
             foreach (var group in groupedTodos)
             {
-                // Create a label for the date
                 Label dateLabel = new Label
                 {
                     Content = group.Key.ToString("dd/MM/yyyy"),
                     FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(0, 10, 0, 0) // Add some margin at the top for spacing
+                    Margin = new Thickness(0, 10, 0, 0)
                 };
 
-                // Add the date label to the StackPanel
                 stackPanel.Children.Add(dateLabel);
 
-                // Iterate over the todos in this group
                 foreach (var todo in group)
                 {
-                    // Create a label for the todo
-                    Label todoLabel = new Label
-                    {
-                        Content = todo.Title,
-                        Margin = new Thickness(0, 0, 0, 10) // Add some margin at the bottom for spacing
-                    };
+                    TodoItemControl todoItemControl = new TodoItemControl();
+                    todoItemControl.TodoText.Text = todo.Title;
+                    todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
 
-                    // Add the todo label to the StackPanel
-                    stackPanel.Children.Add(todoLabel);
+                    string key = TodoKeys[todo];
+
+                    todoItemControl.CheckButton.Click += async (sender, e) =>
+                    {
+                        todo.IsDone = !todo.IsDone;
+                        if (todo.IsDone)
+                        {
+                            todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                        }
+                        else
+                        {
+                            todoItemControl.Background = null;
+                        }
+                        await firebaseClient
+                            .Child("Todo")
+                            .Child(key)
+                            .PutAsync(todo);
+                    };
+                    todoItemControl.DeleteButton.Click += async (sender, e) =>
+                    {
+                        Remove(todo);
+                        stackPanel.Children.Remove(todoItemControl);
+                        await firebaseClient
+                            .Child("Todo")
+                            .Child(key)
+                            .DeleteAsync();
+                        ShowAllTodosGroupedByDate(stackPanel, firebaseClient);
+
+                    };
+                    todoItemControl.EditButton.Click += async (sender, e) =>
+                    {
+                        AddTodoWindow editTodoWindow = new AddTodoWindow(todo);
+                        if (editTodoWindow.ShowDialog() == true)
+                        {
+                            Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
+                            ShowAllTodosGroupedByDate(stackPanel, firebaseClient);
+                            string key = TodoKeys[todo];
+                            await firebaseClient
+                                .Child("Todo")
+                                .Child(key)
+                                .PutAsync(todo);
+                        }
+                    };
+                    if (todo.IsDone)
+                    {
+                        todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                    }
+
+                    stackPanel.Children.Add(todoItemControl);
                 }
             }
         }
