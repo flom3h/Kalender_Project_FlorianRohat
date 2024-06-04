@@ -163,8 +163,10 @@ namespace Kalender_Project_FlorianRohat
                             .Child("Todo")
                             .Child(key)
                             .DeleteAsync();
-                        ShowAllTodosGroupedByDate(stackPanel, firebaseClient);
-
+                        if (!ToDoList.Any(t => t.TodoDate.Date == todo.TodoDate.Date))
+                        {
+                            stackPanel.Children.Remove(dateLabel);
+                        }
                     };
                     todoItemControl.EditButton.Click += async (sender, e) =>
                     {
