@@ -62,7 +62,6 @@
                 <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
                 <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
             </StackPanel>
-                
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="AliceBlue">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" Background="AliceBlue"/>
             </ScrollViewer>
