@@ -17,7 +17,13 @@
             </Grid.ColumnDefinitions>
             <TextBlock x:Name="TodoText" Grid.Column="0" Text="Todo Text" Margin="2"/>
             <TextBlock x:Name="TodoDate" Grid.Column="1" Text="Date" Margin="2"/>
-            <Button x:Name="EditButton" Grid.Column="2" Content="✎" Margin="5,0"/>
+            <Button x:Name="EditButton" Grid.Column="2" Margin="5,0">
+                <Viewbox>
+                    <Canvas Width="960" Height="960">
+                        <Path Fill="Black" Data="M200,760 H257 L648,369 L591,312 L200,703 V760 Z M120,880 V710 L648,183 Q660,172 674.5,166.5 T705,160 Q721,160 736,166 T762,184 L817,240 Q829,251 834.5,266 T840,296 Q840,312 834.5,327.5 T817,353 L290,880 H120 Z M760,376 L704,320 L760,376 Z M619,461 L591,433 L648,490 L619,461 Z" />
+                    </Canvas>
+                </Viewbox>
+            </Button>
             <Button x:Name="CheckButton" Grid.Column="3" Content="✔" Margin="5,0"/>
             <Button x:Name="DeleteButton" Grid.Column="4" Content="❌" Margin="5,0"/>
             
