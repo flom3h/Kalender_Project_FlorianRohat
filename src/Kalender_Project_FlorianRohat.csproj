@@ -56,4 +56,39 @@
     </Page>
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="images\check.png" />
+    <Content Include="images\check.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\circle.png" />
+    <Content Include="images\circle.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\close.png" />
+    <Content Include="images\close.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\closee.png" />
+    <Content Include="images\closee.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\closecolor.png" />
+    <Content Include="images\closecolor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\edit.png" />
+    <Content Include="images\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\editcolor.png" />
+    <Content Include="images\editcolor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <None Remove="images\circlecolor.png" />
+    <Content Include="images\circlecolor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
