@@ -18,12 +18,13 @@
             <TextBlock x:Name="TodoText" Grid.Column="0" Text="Todo Text" Margin="2"/>
             <TextBlock x:Name="TodoDate" Grid.Column="1" Text="Date" Margin="2"/>
             <Button x:Name="EditButton" Grid.Column="2" Margin="5,0">
-                <Viewbox>
-                    <Canvas Width="960" Height="960">
-                        <Path Fill="Black" Data="M200,760 H257 L648,369 L591,312 L200,703 V760 Z M120,880 V710 L648,183 Q660,172 674.5,166.5 T705,160 Q721,160 736,166 T762,184 L817,240 Q829,251 834.5,266 T840,296 Q840,312 834.5,327.5 T817,353 L290,880 H120 Z M760,376 L704,320 L760,376 Z M619,461 L591,433 L648,490 L619,461 Z" />
+                <Viewbox Width="20" Height="22">
+                    <Canvas Width="20" Height="20">
+                        <Path Fill="Black" Data="M4.17,15.83 H5.36 L13.5,7.7 L12.31,6.51 L4.17,14.65 V15.83 Z M2.5,18.33 V13.75 L13.5,2.79 Q13.75,2.58 14.06,2.39 T14.69,2.22 Q15.02,2.22 15.34,2.39 T15.88,2.75 L17.02,3.75 Q17.25,3.96 17.38,4.33 T17.5,4.92 Q17.5,5.33 17.38,5.71 T17.02,6.13 L6.04,18.33 H2.5 Z M15.83,7.83 L14.67,6.67 L15.83,7.83 Z M12.9,9.6 L12.31,9.01 L13.5,10.2 L12.9,9.6 Z" />
                     </Canvas>
                 </Viewbox>
             </Button>
+
             <Button x:Name="CheckButton" Grid.Column="3" Content="✔" Margin="5,0"/>
             <Button x:Name="DeleteButton" Grid.Column="4" Content="❌" Margin="5,0"/>
             
