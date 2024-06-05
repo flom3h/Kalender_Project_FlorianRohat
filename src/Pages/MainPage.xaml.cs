@@ -14,6 +14,13 @@ public partial class MainPage : Page
     public static event EventHandler NotesButtonClicked;
     public static event EventHandler CalendarButtonClicked;
     public static event EventHandler EventButtonClicked; 
+    public enum ViewMode
+    {
+        DayView,
+        AllTodosView
+    }
+
+    public ViewMode CurrentView { get; set; }
     public MainPage()
     {
         InitializeComponent();
@@ -34,15 +41,14 @@ public partial class MainPage : Page
                 .Child("Todo")
                 .PostAsync(addTodoWindow.Todo);
             toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
-            if (Calendar.SelectedDate.HasValue)
+            if (CurrentView == ViewMode.DayView)
             {
-                toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
+                toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
             }
-            else
+            else if (CurrentView == ViewMode.AllTodosView)
             {
-                MessageBox.Show("Bitte wählen Sie ein Datum aus", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                toDoCollection.ShowAllTodosGroupedByDate(StackPanelItems, firebaseClient);
             }
-
             Calendar.UpdateLayout();
         }
     }
@@ -131,11 +137,13 @@ public partial class MainPage : Page
     
     private void GoToTodaysTodos(object sender, RoutedEventArgs e)
     {
+        CurrentView = ViewMode.DayView;
         toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
     }
-    
+
     private void ShowAllTodos(object sender, RoutedEventArgs e)
     {
+        CurrentView = ViewMode.AllTodosView;
         toDoCollection.ShowAllTodosGroupedByDate(StackPanelItems, firebaseClient);
     }
     
