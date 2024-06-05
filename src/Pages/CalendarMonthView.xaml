@@ -6,7 +6,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
       mc:Ignorable="d"
-      Title="CalendarMonthView" Height="450" Width="800">
+      Title="CalendarMonthView">
     <Page.Resources>
         <local:ColorConverterCurrentDay x:Key="ColorConverterCurrentDay"/>
         <local:TaskCountConverter x:Key="TaskCountConverter"/>
@@ -30,7 +30,7 @@
             <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" />
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
-        
+        <GridSplitter/>
         <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Background="Azure">
 
             <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">

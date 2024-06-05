@@ -6,16 +6,34 @@
       xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
       mc:Ignorable="d"
       Title="NotesView">
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
-            <Label Content="Notes" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
-            <Button x:Name="Home" Content="Home" Width="150" Height="30" Margin="0, 4" Click="DisplayHome"/>
-            <Button x:Name="DayView" Content="Mein Tag" Width="150" Height="30" Margin="0, 5"/>
-            <Button x:Name="Important" Content="Wichtig" Width="150" Height="30" Margin="0, 5"/>
-            <Button x:Name="CalendarView" Content="Kalendar" Width="150" Height="30" Margin="0, 5"/>
-            <Button x:Name="Events" Content="Events" Width="150" Height="30" Margin="0, 5"/>
-        </StackPanel>
-        <DockPanel Background="Azure">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="187" MaxWidth="325"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0" Background="Beige">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Viewbox>
+                <Label Grid.Row="0" Content="Notes" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
+            </Viewbox>
+            <Button Grid.Row="1" x:Name="Home" Content="Home" Height="40" Margin="2, 4" Click="DisplayHome"/>
+            <Button Grid.Row="2" x:Name="DayView" Content="Mein Tag" Height="40" Margin="2, 5"/>
+            <Button Grid.Row="3" x:Name="AllTodos" Content="Alle ToDos" Height="40" Margin="2, 5"/>
+            <Button Grid.Row="4" x:Name="Important" Content="Wichtig" Height="40" Margin="2, 5"/>
+            <Button Grid.Row="5" x:Name="CalendarView" Content="Kalendar" Height="40" Margin="2, 5"/>
+            <Button Grid.Row="6" x:Name="Events" Content="Events" Height="40" Margin="2, 5"/>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" Background="Gray" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
+        <DockPanel Grid.Column="2" Background="Azure">
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" Height="Auto" Background="Gray">
                 <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddNote"/>
                 <Button x:Name="Delete" Content="Delete" Width="140" Margin="5" Click="DeleteNote"/>
@@ -27,5 +45,5 @@
             </StackPanel>
             <TextBox x:Name="NoteTextBox" DockPanel.Dock="Top" Background="Lavender" IsEnabled="False" FontFamily="Helvetica" FontSize="20" TextChanged="NoteTextBox_OnTextChanged"/>
         </DockPanel>
-    </DockPanel>
+    </Grid>
 </Page>
