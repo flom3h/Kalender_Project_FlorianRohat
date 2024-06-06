@@ -20,11 +20,11 @@ namespace Kalender_Project_FlorianRohat
     /// </summary>
     public partial class TodoItemControl : UserControl
     {
+
         public TodoItemControl()
         {
             InitializeComponent();
+            StarIcon = this.FindName("StarIcon") as MaterialDesignThemes.Wpf.PackIcon;
         }
-        
-        
     }
 }

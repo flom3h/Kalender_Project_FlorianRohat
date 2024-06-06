@@ -64,6 +64,12 @@ namespace Kalender_Project_FlorianRohat
                     todoItemControl.TodoText.Text = todo.Title;
                     todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
                     todoItemControl.Margin = new Thickness(2, 1, 2, 10);
+                    
+                    todoItemControl.ImportantButton.Click += async (sender, e) =>
+                    {
+                        
+                        todoItemControl.StarIcon.Foreground = Brushes.Yellow;
+                    };
 
                     todoItemControl.CheckButton.Click += async (sender, e) =>
                     {
