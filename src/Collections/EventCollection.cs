@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.InteropServices;
 using System.Text.Json;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using Firebase.Database;
@@ -38,6 +39,7 @@ public class EventCollection
             EventItemControl eventItemControl = new EventItemControl();
             eventItemControl.EventText.Text = events.Title;
             eventItemControl.EventDate.Text = events.CombinedDate;
+            eventItemControl.Margin = new Thickness(2, 0, 2, 10);
             stackPanel.Children.Add(eventItemControl);
         }
     }

@@ -2,6 +2,8 @@
 using System;
 using System.Globalization;
 using System.Windows.Data;
+using System.Windows.Media;
+using Kalender_Project_FlorianRohat.Pages;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -11,7 +13,20 @@ namespace Kalender_Project_FlorianRohat
         {
             if (value is DateTime date)
             {
-                return MainPage.toDoCollection.Any(date);
+                bool hasToDo = MainPage.toDoCollection?.Any(date) ?? false;
+                
+                bool hasEvent = EventView.eventCollection?.EventsList.Any(e =>
+                    (e.Date.Date == date.Date) ||
+                    (e.EndDate != null && date.Date >= e.Date.Date && date.Date <= e.EndDate.Value.Date)) ?? false;
+                
+                if (hasToDo && hasEvent)
+                    return Brushes.Purple;
+                else if (hasToDo)
+                    return Brushes.Green;
+                else if (hasEvent)
+                    return Brushes.Red;
+
+                return Brushes.White;
             }
             return false;
         }

@@ -23,10 +23,9 @@
         <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
             <Label Content="Kalender" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
 
-            
+            <Button x:Name="Home" Content="Home" Width="185" Height="30" Margin="0, 5" Click="DisplayHome"/>
             <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
             <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
-            <Button x:Name="Home" Content="Home" Width="185" Height="30" Margin="0, 5" Click="DisplayHome"/>
             <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" />
             <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
         </StackPanel>
