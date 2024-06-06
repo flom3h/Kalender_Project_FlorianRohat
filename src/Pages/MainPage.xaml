@@ -419,7 +419,7 @@
             <ColumnDefinition Width="1"/>
             <ColumnDefinition Width="*" MinWidth="350"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="Beige">
+        <Grid Grid.Column="0" Background="#2C3333">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
