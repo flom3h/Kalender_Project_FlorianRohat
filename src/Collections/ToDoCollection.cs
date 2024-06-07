@@ -61,9 +61,9 @@ namespace Kalender_Project_FlorianRohat
                 {
                     string key = TodoKeys[todo];
                     TodoItemControl todoItemControl = new TodoItemControl();
+                    todoItemControl.Margin = new Thickness(40,2,40,10);
                     todoItemControl.TodoText.Text = todo.Title;
                     todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
-                    todoItemControl.Margin = new Thickness(2, 1, 2, 10);
                     
                     todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
@@ -76,11 +76,11 @@ namespace Kalender_Project_FlorianRohat
                         todo.IsDone = !todo.IsDone;
                         if (todo.IsDone)
                         {
-                            todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                            todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                         }
                         else
                         {
-                            todoItemControl.Background = null;
+                            todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
                         }
                         await firebaseClient
                             .Child("Todo")
@@ -133,7 +133,9 @@ namespace Kalender_Project_FlorianRohat
                 {
                     Content = group.Key.ToString("dd/MM/yyyy"),
                     FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(0, 10, 0, 0)
+                    Margin = new Thickness(0, 10, 0, 0),
+                    Foreground = Brushes.White,
+                    
                 };
 
                 stackPanel.Children.Add(dateLabel);

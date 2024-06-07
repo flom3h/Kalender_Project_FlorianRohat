@@ -7,7 +7,8 @@ using Firebase.Database.Query;
 
 namespace Kalender_Project_FlorianRohat;
 
-public partial class MainPage : Page
+public partial class 
+    MainPage : Page
 {
     public static ToDoCollection toDoCollection;
     private FirebaseClient firebaseClient;

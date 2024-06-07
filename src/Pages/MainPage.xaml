@@ -407,7 +407,28 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="#FFFFFF"></Setter> 
+            <Setter Property="Padding" Value="30"></Setter>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"  BorderThickness="1" CornerRadius="5">
+                            <ContentPresenter VerticalAlignment="Center" Margin="12 0, 0, 0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#595959"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Page.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -415,7 +436,7 @@
             <ColumnDefinition Width="1"/>
             <ColumnDefinition Width="*" MinWidth="350"/>
         </Grid.ColumnDefinitions>
-        <Grid Grid.Column="0" Background="#2C3333">
+        <Grid Grid.Column="0" Background="#2A2A2A">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -427,11 +448,9 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Viewbox>
-                <Calendar Grid.Row="0" x:Name="Calendar" SelectedDatesChanged="DateChange" CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" Style="{DynamicResource CalendarStyle1}" Margin="10, 10,10,10">
-                    
-                </Calendar>
+                <Calendar Grid.Row="0" x:Name="Calendar" SelectedDatesChanged="DateChange" CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" Style="{DynamicResource CalendarStyle1}" Margin="10, 10,10,10"/>
             </Viewbox>
-            <Button Grid.Row="1" x:Name="DayView" Content="Mein Tag" Height="30" Margin="2, 5" Click="GoToTodaysTodos"/>
+            <Button Grid.Row="1" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="GoToTodaysTodos"/>
             <Button Grid.Row="2" x:Name="AllTodos" Content="Alle ToDos" Height="30" Margin="2, 5" Click="ShowAllTodos"/>
             <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5"/>
             <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" Click="DisplayCalendar"/>
@@ -446,8 +465,8 @@
                 <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
                 <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
             </StackPanel>
-            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="AliceBlue">
-                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" Background="AliceBlue"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="#1C1C1C">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" />
             </ScrollViewer>
         </DockPanel>
     </Grid>
