@@ -154,7 +154,7 @@ namespace Kalender_Project_FlorianRohat
                     };
                     if (todo.IsDone)
                     {
-                        todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                     }
                     stackPanel.Children.Add(todoItemControl);
                 }
@@ -206,15 +206,6 @@ namespace Kalender_Project_FlorianRohat
                             Height = 20
                         };
                     }
-                    if (todo.IsDone)
-                    {
-                        todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
-                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
-                    }
-                    else
-                    {
-                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
-                    }
                     todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
                         todo.IsImportant = !todo.IsImportant;
@@ -241,11 +232,12 @@ namespace Kalender_Project_FlorianRohat
                         todo.IsDone = !todo.IsDone;
                         if (todo.IsDone)
                         {
-                            todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                            todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
+                            todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                         }
                         else
                         {
-                            todoItemControl.Background = null;
+                            todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
                         }
                         await firebaseClient
                             .Child("Todo")
@@ -281,7 +273,7 @@ namespace Kalender_Project_FlorianRohat
                     };
                     if (todo.IsDone)
                     {
-                        todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                     }
 
                     stackPanel.Children.Add(todoItemControl);
@@ -333,15 +325,6 @@ namespace Kalender_Project_FlorianRohat
                         Height = 20
                     };
                 }
-                if (todo.IsDone)
-                {
-                    todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
-                    todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
-                }
-                else
-                {
-                    todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
-                }
                 todoItemControl.ImportantButton.Click += async (sender, e) =>
                 {
                     todo.IsImportant = !todo.IsImportant;
@@ -369,11 +352,12 @@ namespace Kalender_Project_FlorianRohat
                     todo.IsDone = !todo.IsDone;
                     if (todo.IsDone)
                     {
-                        todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                        todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                     }
                     else
                     {
-                        todoItemControl.Background = null;
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
                     }
                     await firebaseClient
                         .Child("Todo")
@@ -405,7 +389,7 @@ namespace Kalender_Project_FlorianRohat
                 };
                 if (todo.IsDone)
                 {
-                    todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                    todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                 }
 
                 stackPanel.Children.Add(todoItemControl);
