@@ -6,6 +6,7 @@ using System.Windows.Media;
 using Firebase.Database.Query;
 using System.Windows;
 using System.Threading.Tasks;
+using System.Windows.Media.Imaging;
 
 namespace Kalender_Project_FlorianRohat
 {
@@ -64,12 +65,45 @@ namespace Kalender_Project_FlorianRohat
                     todoItemControl.Margin = new Thickness(40,2,40,10);
                     todoItemControl.TodoText.Text = todo.Title;
                     todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
+                    if (todo.IsImportant)
+                    {
+                        todoItemControl.ImportantButton.Content = new Image
+                        {
+                            Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative)),
+                            Width = 20,
+                            Height = 20
+                        };
+                    }
+                    else
+                    {
+                        todoItemControl.ImportantButton.Content = new Image
+                        {
+                            Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative)),
+                            Width = 20,
+                            Height = 20
+                        };
+                    }
                     
                     todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
-                        
+                        todo.IsImportant = !todo.IsImportant;
+                        var buttonContent = todoItemControl.ImportantButton.Content as Image;
+                        if (buttonContent != null)
+                        {
+                            if (todo.IsImportant)
+                            {
+                                buttonContent.Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative));
+                            }
+                            else
+                            {
+                                buttonContent.Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative));
+                            }
+                            await firebaseClient
+                                .Child("Todo")
+                                .Child(key)
+                                .PutAsync(todo);
+                        }
                     };
-
                     todoItemControl.CheckButton.Click += async (sender, e) =>
                     {
                         todo.IsDone = !todo.IsDone;
@@ -197,6 +231,121 @@ namespace Kalender_Project_FlorianRohat
 
                     stackPanel.Children.Add(todoItemControl);
                 }
+            }
+        }
+        
+        public void ShowImportantTodos(StackPanel stackPanel, FirebaseClient firebaseClient)
+        {
+            stackPanel.Children.Clear();
+            var importantTodos = ToDoList
+                .Where(todo => todo.IsImportant)
+                .OrderBy(todo => todo.TodoDate);
+
+            foreach (var todo in importantTodos)
+            {
+                Label info = new Label
+                {
+                    Content = todo.TodoDate.ToString("dd/MM/yyyy"),
+                    FontWeight = FontWeights.Bold,
+                    Margin = new Thickness(0, 10, 0, 0),
+                    Foreground = Brushes.White,
+                    
+                };
+                
+                stackPanel.Children.Add(info);
+                
+                TodoItemControl todoItemControl = new TodoItemControl();
+                todoItemControl.TodoText.Text = todo.Title;
+                todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
+                todo.IsImportant = true;
+                string key = TodoKeys[todo];
+                
+                if (todo.IsImportant)
+                {
+                    todoItemControl.ImportantButton.Content = new Image
+                    {
+                        Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative)),
+                        Width = 20,
+                        Height = 20
+                    };
+                }
+                else
+                {
+                    todoItemControl.ImportantButton.Content = new Image
+                    {
+                        Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative)),
+                        Width = 20,
+                        Height = 20
+                    };
+                }
+                
+                todoItemControl.ImportantButton.Click += async (sender, e) =>
+                {
+                    todo.IsImportant = !todo.IsImportant;
+                    var buttonContent = todoItemControl.ImportantButton.Content as Image;
+                    if (buttonContent != null)
+                    {
+                        if (todo.IsImportant)
+                        {
+                            buttonContent.Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative));
+                        }
+                        else
+                        {
+                            buttonContent.Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative));
+                        }
+                        await firebaseClient
+                            .Child("Todo")
+                            .Child(key)
+                            .PutAsync(todo);
+                    }
+                    ShowImportantTodos(stackPanel, firebaseClient);
+                };
+
+                todoItemControl.CheckButton.Click += async (sender, e) =>
+                {
+                    todo.IsDone = !todo.IsDone;
+                    if (todo.IsDone)
+                    {
+                        todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                    }
+                    else
+                    {
+                        todoItemControl.Background = null;
+                    }
+                    await firebaseClient
+                        .Child("Todo")
+                        .Child(key)
+                        .PutAsync(todo);
+                };
+                todoItemControl.DeleteButton.Click += async (sender, e) =>
+                {
+                    Remove(todo);
+                    stackPanel.Children.Remove(todoItemControl);
+                    await firebaseClient
+                        .Child("Todo")
+                        .Child(key)
+                        .DeleteAsync();
+                };
+                todoItemControl.EditButton.Click += async (sender, e) =>
+                {
+                    AddTodoWindow editTodoWindow = new AddTodoWindow(todo);
+                    if (editTodoWindow.ShowDialog() == true)
+                    {
+                        Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
+                        ShowImportantTodos(stackPanel, firebaseClient);
+                        string key = TodoKeys[todo];
+                        await firebaseClient
+                            .Child("Todo")
+                            .Child(key)
+                            .PutAsync(todo);
+                    }
+                };
+                if (todo.IsDone)
+                {
+                    todoItemControl.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                }
+
+                stackPanel.Children.Add(todoItemControl);
             }
         }
         public int DrawDay(DateTime date)

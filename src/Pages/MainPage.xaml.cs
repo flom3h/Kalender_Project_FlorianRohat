@@ -148,4 +148,10 @@ public partial class
         toDoCollection.ShowAllTodosGroupedByDate(StackPanelItems, firebaseClient);
     }
     
+    private void ShowImportantTodos(object sender, RoutedEventArgs e)
+    {
+        CurrentView = ViewMode.AllTodosView;
+        toDoCollection.ShowImportantTodos(StackPanelItems, firebaseClient);
+    }
+    
 }
