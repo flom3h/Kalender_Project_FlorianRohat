@@ -473,8 +473,7 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
                 <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
                 <Button x:Name="Save" Content="Save" Width="140" Margin="5" Click="SaveClick"/>
-                <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
-                <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1" HorizontalAlignment="Right"/>
             </StackPanel>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="#1C1C1C">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" />

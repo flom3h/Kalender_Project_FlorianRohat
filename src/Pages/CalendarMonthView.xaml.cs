@@ -15,7 +15,6 @@ namespace Kalender_Project_FlorianRohat
         private FirebaseClient firebaseClient;
         private DateTime currentDate;
 
-        public List<string> DaysOfWeek { get; set; }
         private ObservableCollection<CalendarDay> _days;
         public ObservableCollection<CalendarDay> Days
         {
@@ -39,14 +38,12 @@ namespace Kalender_Project_FlorianRohat
 
             toDoCollection = new ToDoCollection();
             toDoCollection.TodoAdded += OnTodoAdded; // Subscribe to the event
-            firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
+            firebaseClient = new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
             
-            DaysOfWeek = new List<string> { "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag" };
-
             currentDate = DateTime.Today;
             _days = new ObservableCollection<CalendarDay>();
             LoadTodosAsync(); // Call the method to load todos asynchronously
-            FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
+            FillDays(currentDate);
             
         }
         
@@ -60,63 +57,44 @@ namespace Kalender_Project_FlorianRohat
             var todos = await firebaseClient
                 .Child("Todo")
                 .OnceAsync<ToDo>();
-    
+
             foreach (var todo in todos)
             {
                 toDoCollection.Add(todo.Object, todo.Key);
             }
         }
-        
-        private void FillDays(int year, int month, int day)
+
+        private void FillDays(DateTime startDate)
         {
             Days.Clear();
 
-            DateTime firstDayOfMonth = new DateTime(year, month, day);
-            int offset = (int)firstDayOfMonth.DayOfWeek - 1; // -1 because DayOfWeek starts from Sunday as 0
-            offset = offset < 0 ? 6 : offset; // if it's Sunday, set offset to 6
+            // Calculate the first day to show (the Monday of the week that includes startDate)
+            DateTime firstDayToShow = startDate.AddDays(-(int)startDate.DayOfWeek + (int)DayOfWeek.Monday);
 
-            // Add days from the previous month
-            DateTime previousMonth = firstDayOfMonth.AddMonths(-1);
-            int daysInPreviousMonth = DateTime.DaysInMonth(previousMonth.Year, previousMonth.Month);
-            for (int i = daysInPreviousMonth - offset + 1; i <= daysInPreviousMonth; i++)
-            {
-                Days.Add(new CalendarDay(new DateTime(previousMonth.Year, previousMonth.Month, i), 0));
-            }
+            // Calculate the last day to show (27 days from the first day to show)
+            DateTime lastDayToShow = firstDayToShow.AddDays(27);
 
-            // Add days of the current month
-            int daysInMonth = DateTime.DaysInMonth(year, month);
-            for (int i = 1; i <= daysInMonth; i++)
+            // Fill the days from the calculated first day to the last day
+            for (DateTime date = firstDayToShow; date <= lastDayToShow; date = date.AddDays(1))
             {
-                DateTime date = new DateTime(year, month, i);
                 int tasksCount = toDoCollection.DrawDay(date);
                 Days.Add(new CalendarDay(date, tasksCount));
             }
-
-            // Add days from the next month
-            DateTime nextMonth = firstDayOfMonth.AddMonths(1);
-            int nextDaysToAdd = 42 - Days.Count; // 42 is the total number of cells in a 6x7 grid
-            for (int i = 1; i <= nextDaysToAdd; i++)
-            {
-                Days.Add(new CalendarDay(new DateTime(nextMonth.Year, nextMonth.Month, i), 0));
-            }
-            
-
         }
-        
+
         private void Day_Click(object sender, RoutedEventArgs e)
         {
-            // Get the clicked day
             var button = (Button)sender;
             var clickedDay = (CalendarDay)button.DataContext;
 
-            // Navigate to MainPage and set the selected date
             var mainPage = new MainPage();
             mainPage.Calendar.SelectedDate = clickedDay.Date;
             this.NavigationService.Navigate(mainPage);
         }
+
         private void OnTodoAdded(object sender, EventArgs e)
         {
-            FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
+            FillDays(currentDate);
         }
 
         private async void AddClick(object sender, RoutedEventArgs e)
@@ -128,10 +106,9 @@ namespace Kalender_Project_FlorianRohat
                     .Child("Todo")
                     .PostAsync(addTodoWindow.Todo);
                 toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
-                
             }
         }
-        
+
         private void DisplayTime()
         {
             DispatcherTimer timer = new DispatcherTimer();
@@ -142,19 +119,19 @@ namespace Kalender_Project_FlorianRohat
             };
             timer.Start();
         }
-        
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
-        
-        
+
         private void NextMonth()
         {
-            currentDate = currentDate.AddMonths(1);
-            FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
+            DateTime lastDayDisplayed = Days.Last().Date;
+            currentDate = lastDayDisplayed.AddDays(1);
+            FillDays(currentDate);
         }
 
         private void NextMonth_Click(object sender, RoutedEventArgs e)
@@ -162,28 +139,24 @@ namespace Kalender_Project_FlorianRohat
             NextMonth();
             OnPropertyChanged(nameof(Days));
         }
-        
-        
-        
+
         private void PreviousMonth()
         {
-            currentDate = currentDate.AddMonths(-1);
-            FillDays(currentDate.Year, currentDate.Month, currentDate.Day);
+            currentDate = currentDate.AddDays(-28);
+            FillDays(currentDate);
         }
+
         private void PreviousMonth_Click(object sender, RoutedEventArgs e)
         {
             PreviousMonth();
             OnPropertyChanged(nameof(Days));
         }
-        
+
         private void DisplayHome(object sender, RoutedEventArgs e)
         {
-
             var mainPage = new MainPage();
             mainPage.Calendar.SelectedDate = currentDate;
             this.NavigationService.Navigate(mainPage);
-            
         }
-
     }
 }

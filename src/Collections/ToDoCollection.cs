@@ -109,6 +109,7 @@ namespace Kalender_Project_FlorianRohat
                         todo.IsDone = !todo.IsDone;
                         if (todo.IsDone)
                         {
+                            todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
                             todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                         }
                         else

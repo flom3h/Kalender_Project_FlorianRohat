@@ -10,81 +10,102 @@
     <Page.Resources>
         <local:ColorConverterCurrentDay x:Key="ColorConverterCurrentDay"/>
         <local:TaskCountConverter x:Key="TaskCountConverter"/>
+        <Style TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontSize" Value="18"/>
+            <Setter Property="Foreground" Value="#FFFFFF"></Setter> 
+            <Setter Property="Padding" Value="30"></Setter>
+            
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Background="{TemplateBinding Background}"  BorderThickness="1" CornerRadius="5">
+                            <ContentPresenter VerticalAlignment="Center" Margin="12 0, 0, 0"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#595959"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Page.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="185"/>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto" MinWidth="241" MaxWidth="325"/>
+            <ColumnDefinition Width="1"/>
+            <ColumnDefinition Width="*" MinWidth="350"/>
         </Grid.ColumnDefinitions>
-                
+        <Grid Grid.Column="0" Background="#2A2A2A">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            
+            <Button Grid.Row="0" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
+            <Button Grid.Row="1" x:Name="AllTodos" Content="Alle ToDos" Height="30" Margin="2, 5"/>
+            <Button Grid.Row="2" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5"/>
+            <Button Grid.Row="3" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" />
+            <Button Grid.Row="4" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" />
+            <Button Grid.Row="5" x:Name="Events" Content="Events" Height="30" Margin="2, 5"/>
+        </Grid>
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" Background="Gray" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
         
-        <StackPanel Grid.Column="0" Background="Beige" Orientation="Vertical" HorizontalAlignment="Left">
-            <Label Content="Kalender" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
-
-            <Button x:Name="Home" Content="Home" Width="185" Height="30" Margin="0, 5" Click="DisplayHome"/>
-            <Button x:Name="DayView" Content="Mein Tag" Width="185" Height="30" Margin="0, 5"/>
-            <Button x:Name="Important" Content="Wichtig" Width="185" Height="30" Margin="0, 5"/>
-            <Button x:Name="Notes" Content="Notizen" Width="185" Height="30" Margin="0, 5" />
-            <Button x:Name="Events" Content="Events" Width="185" Height="30" Margin="0, 5"/>
-        </StackPanel>
-        <GridSplitter/>
-        <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Background="Azure">
-
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
+        <StackPanel Grid.Column="2" Background="#1C1C1C">
+            
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
                 <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
                 <Button x:Name="PreviousMonthButton" Content="Previous Month" Width="140" Margin="5" Click="PreviousMonth_Click"/>
                 <Button x:Name="NextMonthButton" Content="Next Month" Width="140" Margin="5" Click="NextMonth_Click"/>
                 <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
             </StackPanel>
-            <StackPanel Grid.Column="1" Grid.ColumnSpan="2" Orientation="Vertical" VerticalAlignment="Top" Background="White">
+            <StackPanel  Orientation="Vertical" VerticalAlignment="Top" Background="#1C1C1C" Margin="0,10">
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                     </Grid.ColumnDefinitions>
-                    <!-- Days of the week -->
-                    <ItemsControl Grid.Column="1" ItemsSource="{Binding DaysOfWeek}">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <StackPanel Orientation="Horizontal"/>
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Border BorderBrush="Black" BorderThickness="1" Width="85" Height="30">
-                                    <TextBlock Text="{Binding}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                </Border>
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"></RowDefinition>
+                        <RowDefinition Height="*"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    
+                    <TextBlock Grid.Column="0" Text="Mo" HorizontalAlignment="Center" Foreground="#FFFFFF" FontSize="14"/>
+                    <TextBlock Grid.Column="1" Text="Di" HorizontalAlignment="Center"  Foreground="#FFFFFF" FontSize="14"/>
+                    <TextBlock Grid.Column="2" Text="Mi" HorizontalAlignment="Center"  Foreground="#FFFFFF" FontSize="14"/>
+                    <TextBlock Grid.Column="3" Text="Do" HorizontalAlignment="Center"  Foreground="#FFFFFF" FontSize="14"/>
+                    <TextBlock Grid.Column="4" Text="Fr" HorizontalAlignment="Center"  Foreground="#FFFFFF" FontSize="14"/>
+                    <TextBlock Grid.Column="5" Text="Sa" HorizontalAlignment="Center" Foreground="#FFFFFF" FontSize="14"/>
+                    <TextBlock Grid.Column="6" Text="So" HorizontalAlignment="Center" Foreground="#FFFFFF" FontSize="14"/>
                 </Grid>
-            
-                <!-- Calendar Days -->
+
                 <ItemsControl ItemsSource="{Binding Days}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel/>
+                            <UniformGrid Rows="4" Columns="7"/>
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="Black" BorderThickness="1" Width="85" Height="85">
-                                <Border.Style>
-                                    <Style TargetType="Border">
-                                        <Setter Property="Background" Value="White"/>
-                                        <Style.Triggers>
-                                            <DataTrigger Binding="{Binding Converter={StaticResource ColorConverterCurrentDay}}" Value="True">
-                                                <Setter Property="Background" Value="BlueViolet"/>
-                                            </DataTrigger>
-                                        </Style.Triggers>
-                                    </Style>
-                                </Border.Style>
-                                <Button Background="Transparent" Click="Day_Click" >
-                                    <StackPanel>
-                                        <TextBlock Text="{Binding Date.Day}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>
-                                        <TextBlock Text="{Binding TasksCount, Converter={StaticResource TaskCountConverter}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 5, 0, 0"/>   
+                            <Border BorderBrush="#2a2a2a" BorderThickness="2">
+                                <Button Background="Transparent" Click="Day_Click" Height="100">
+                                    <StackPanel VerticalAlignment="Center">
+                                        <TextBlock Text="{Binding Date.Day}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,0,0,0"/>
+                                        <TextBlock Text="{Binding TasksCount, Converter={StaticResource TaskCountConverter}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>   
                                     </StackPanel>
                                 </Button>
                             </Border>
