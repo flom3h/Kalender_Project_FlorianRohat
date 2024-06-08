@@ -130,22 +130,30 @@ public partial class NotesView : Page
 
     private void NoteTextBox_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        foreach (NoteItemControl control in NoteButtonPanel.Children)
+        try
         {
-            if (control.NoteTitle.Text == openedNote?.Title)
+            foreach (NoteItemControl control in NoteButtonPanel.Children)
             {
-                control.NoteTitle.FontWeight = FontWeights.Bold;
+                if (control.NoteTitle.Text == openedNote?.Title)
+                {
+                    control.NoteTitle.FontWeight = FontWeights.Bold;
+                }
+                else
+                {
+                    control.NoteTitle.FontWeight = FontWeights.Normal;
+                }
             }
-            else
+
+            if (openedNote != null)
             {
-                control.NoteTitle.FontWeight = FontWeights.Normal;
+                notesCollection.Edit(openedNote, openedNote.Title, NoteTextBox.Text, firebaseClient);
             }
+        }
+        catch (Exception exception)
+        {
+            MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
-        if (openedNote != null)
-        {
-            notesCollection.Edit(openedNote, openedNote.Title, NoteTextBox.Text, firebaseClient);
-        }
     }
 
     private async void LoadNotes()

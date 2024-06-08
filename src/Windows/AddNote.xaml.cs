@@ -21,14 +21,22 @@ public partial class AddNote : Window
     
     private void CreateNote(object sender, RoutedEventArgs e)
     {
-        if (string.IsNullOrEmpty(NoteTitleInput.Text) == false)
+        try
         {
-            note.Title = NoteTitleInput.Text;
-            DialogResult = true;
+            if (string.IsNullOrEmpty(NoteTitleInput.Text) == false)
+            {
+                note.Title = NoteTitleInput.Text;
+                DialogResult = true;
+            }
+            else
+            {
+                MessageBox.Show("Gib etwas in die Felder ein", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
-        else
+        catch (Exception exception)
         {
-            MessageBox.Show("Gib etwas in die Felder ein", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(exception.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
+
     }
 }
