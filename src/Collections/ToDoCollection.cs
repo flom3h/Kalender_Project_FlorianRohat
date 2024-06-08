@@ -152,7 +152,7 @@ namespace Kalender_Project_FlorianRohat
                 }
             }
         }
-        public void ShowAllTodosGroupedByDate(StackPanel stackPanel, FirebaseClient firebaseClient)
+        public void DrawAllTodos(StackPanel stackPanel, FirebaseClient firebaseClient)
         {
             stackPanel.Children.Clear();
 
@@ -180,6 +180,45 @@ namespace Kalender_Project_FlorianRohat
                     todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
 
                     string key = TodoKeys[todo];
+                    if (todo.IsImportant)
+                    {
+                        todoItemControl.ImportantButton.Content = new Image
+                        {
+                            Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative)),
+                            Width = 20,
+                            Height = 20
+                        };
+                    }
+                    else
+                    {
+                        todoItemControl.ImportantButton.Content = new Image
+                        {
+                            Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative)),
+                            Width = 20,
+                            Height = 20
+                        };
+                    }
+                    
+                    todoItemControl.ImportantButton.Click += async (sender, e) =>
+                    {
+                        todo.IsImportant = !todo.IsImportant;
+                        var buttonContent = todoItemControl.ImportantButton.Content as Image;
+                        if (buttonContent != null)
+                        {
+                            if (todo.IsImportant)
+                            {
+                                buttonContent.Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative));
+                            }
+                            else
+                            {
+                                buttonContent.Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative));
+                            }
+                            await firebaseClient
+                                .Child("Todo")
+                                .Child(key)
+                                .PutAsync(todo);
+                        }
+                    };
 
                     todoItemControl.CheckButton.Click += async (sender, e) =>
                     {
@@ -216,7 +255,7 @@ namespace Kalender_Project_FlorianRohat
                         if (editTodoWindow.ShowDialog() == true)
                         {
                             Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
-                            ShowAllTodosGroupedByDate(stackPanel, firebaseClient);
+                           DrawAllTodos(stackPanel, firebaseClient);
                             string key = TodoKeys[todo];
                             await firebaseClient
                                 .Child("Todo")
@@ -234,7 +273,7 @@ namespace Kalender_Project_FlorianRohat
             }
         }
         
-        public void ShowImportantTodos(StackPanel stackPanel, FirebaseClient firebaseClient)
+        public void DrawImportantTodos(StackPanel stackPanel, FirebaseClient firebaseClient)
         {
             stackPanel.Children.Clear();
             var importantTodos = ToDoList
@@ -298,7 +337,7 @@ namespace Kalender_Project_FlorianRohat
                             .Child(key)
                             .PutAsync(todo);
                     }
-                    ShowImportantTodos(stackPanel, firebaseClient);
+                    DrawImportantTodos(stackPanel, firebaseClient);
                 };
 
                 todoItemControl.CheckButton.Click += async (sender, e) =>
@@ -332,7 +371,7 @@ namespace Kalender_Project_FlorianRohat
                     if (editTodoWindow.ShowDialog() == true)
                     {
                         Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
-                        ShowImportantTodos(stackPanel, firebaseClient);
+                        DrawImportantTodos(stackPanel, firebaseClient);
                         string key = TodoKeys[todo];
                         await firebaseClient
                             .Child("Todo")

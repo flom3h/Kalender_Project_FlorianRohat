@@ -1,14 +1,14 @@
-﻿using System.Windows.Controls;
+using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Win32;
 using Firebase.Database;
 using Firebase.Database.Query;
 
-namespace Kalender_Project_FlorianRohat;
 
-public partial class 
-    MainPage : Page
+namespace Kalender_Project_FlorianRohat.Pages;
+
+public partial class ImportantView : Page
 {
     public static ToDoCollection toDoCollection;
     private FirebaseClient firebaseClient;
@@ -16,16 +16,8 @@ public partial class
     public static event EventHandler CalendarButtonClicked;
     public static event EventHandler EventButtonClicked; 
     public static event EventHandler AllTodosButtonClicked;
-    
-    public static event EventHandler ImportantTodosButtonClicked;
-    public enum ViewMode
-    {
-        DayView,
-        AllTodosView
-    }
 
-    public ViewMode CurrentView { get; set; }
-    public MainPage()
+    public ImportantView()
     {
         InitializeComponent();
         toDoCollection = new ToDoCollection();
@@ -45,7 +37,7 @@ public partial class
                 .Child("Todo")
                 .PostAsync(addTodoWindow.Todo);
             toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
-            toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
+            toDoCollection.DrawImportantTodos(StackPanelItems, firebaseClient);
             Calendar.UpdateLayout();
         }
     }
@@ -64,6 +56,13 @@ public partial class
             string fileName = saveFileDialog.FileName;
             toDoCollection.Serialize(fileName);
 
+        }
+    }
+    private void DisplayHome(object sender, RoutedEventArgs e)
+    {
+        if (this.NavigationService.CanGoBack)
+        {
+            this.NavigationService.GoBack();
         }
     }
     
@@ -87,11 +86,6 @@ public partial class
         AllTodosButtonClicked?.Invoke(this, EventArgs.Empty);
     }
     
-    private void DisplayImportantTodos(object sender, RoutedEventArgs e)
-    {
-        ImportantTodosButtonClicked?.Invoke(this, EventArgs.Empty);
-    }
-    
     private async void LoadTodos()
     {
         var todos = await firebaseClient
@@ -104,7 +98,7 @@ public partial class
         }
         if (Calendar.SelectedDate.HasValue)
         {
-            toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
+            toDoCollection.DrawImportantTodos(StackPanelItems, firebaseClient);
         }
         else
         {
@@ -122,24 +116,5 @@ public partial class
         };
         timer.Start();
     }
-
-    private void DateChange(object? sender, SelectionChangedEventArgs e)
-    {
-        if (Calendar.SelectedDate.HasValue)
-        {
-            toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
-        }
-        else
-        {
-            toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
-        }
-    }
-    
-    private void GoToTodaysTodos(object sender, RoutedEventArgs e)
-    {
-        CurrentView = ViewMode.DayView;
-        toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
-    }
-    
     
 }

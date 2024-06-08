@@ -10,6 +10,7 @@ namespace Kalender_Project_FlorianRohat;
 public partial class NotesView : Page
 {
     public static NotesCollection notesCollection;
+    public static event Action DisplayAllTodosEvent;
     private FirebaseClient firebaseClient;
     public Note? openedNote;
     
@@ -86,6 +87,12 @@ public partial class NotesView : Page
         {
             this.NavigationService.GoBack();
         }
+    }
+    
+    private void DisplayAllTodos(object sender, RoutedEventArgs e)
+    {
+        this.NavigationService.Navigate(new MainPage());
+        DisplayAllTodosEvent?.Invoke();
     }
     
     private void DisplayTime()

@@ -16,6 +16,8 @@ namespace Kalender_Project_FlorianRohat
             MainPage.NotesButtonClicked += DisplayNotes;
             MainPage.CalendarButtonClicked += DisplayCalendar;
             MainPage.EventButtonClicked += DisplayEvents;
+            MainPage.AllTodosButtonClicked += DisplayAllTodos;
+            MainPage.ImportantTodosButtonClicked += DisplayImportantTodos;
         }
         private void DisplayNotes(object sendefr, System.EventArgs e)
         {
@@ -33,6 +35,18 @@ namespace Kalender_Project_FlorianRohat
         {
             EventView eventView = new EventView();
             MainFrame.Navigate(eventView);
+        }
+        
+        private void DisplayAllTodos (object sendefr, System.EventArgs e)
+        {
+            AllTodosView allTodosPage = new AllTodosView();
+            MainFrame.Navigate(allTodosPage);
+        }
+        
+        private void DisplayImportantTodos (object sendefr, System.EventArgs e)
+        {
+            ImportantView importantView = new ImportantView();
+            MainFrame.Navigate(importantView);
         }
     }
 }
