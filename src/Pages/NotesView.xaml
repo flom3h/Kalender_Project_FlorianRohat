@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Kalender_Project_FlorianRohat"
       mc:Ignorable="d"
       Title="NotesView">
     <Grid>
@@ -25,11 +24,12 @@
             <Viewbox>
                 <Label Grid.Row="0" Content="Notes" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0, 5, 0, 4" Height="30" FontSize="20" Padding="45, 0" BorderBrush="Black" BorderThickness="1"/>
             </Viewbox>
-            <Button Grid.Row="1" x:Name="Home" Content="Home" Height="40" Margin="2, 4" Click="DisplayHome"/>
-            <Button Grid.Row="3" x:Name="AllTodos" Content="Alle ToDos" Height="40" Margin="2, 5" Click="DisplayAllTodos"/>
-            <Button Grid.Row="4" x:Name="Important" Content="Wichtig" Height="40" Margin="2, 5"/>
-            <Button Grid.Row="5" x:Name="CalendarView" Content="Kalendar" Height="40" Margin="2, 5"/>
-            <Button Grid.Row="6" x:Name="Events" Content="Events" Height="40" Margin="2, 5"/>
+            <Button Grid.Row="1" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
+            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle Todos" Height="30" Margin="2, 5" Click="DisplayAllTodos"/>
+            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5" Click="DisplayImportantTodos"/>
+            <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" Click="DisplayCalendar"/>
+            <Button Grid.Row="5" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" Click="DisplayNotes"/>
+            <Button Grid.Row="6" x:Name="Events" Content="Events" Height="30" Margin="2, 5" Click="DisplayEvents"/>
         </Grid>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" Background="Gray" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
         <DockPanel Grid.Column="2" Background="Azure">

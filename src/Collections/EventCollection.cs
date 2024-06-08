@@ -1,11 +1,8 @@
 ﻿using System.IO;
-using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using Firebase.Database;
-using Firebase.Database.Query;
 using Kalender_Project_FlorianRohat.UserControls;
 
 namespace Kalender_Project_FlorianRohat;

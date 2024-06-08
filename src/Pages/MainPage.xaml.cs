@@ -12,11 +12,11 @@ public partial class
 {
     public static ToDoCollection toDoCollection;
     private FirebaseClient firebaseClient;
+    public static event EventHandler HomeButtonClicked;
     public static event EventHandler NotesButtonClicked;
     public static event EventHandler CalendarButtonClicked;
     public static event EventHandler EventButtonClicked; 
     public static event EventHandler AllTodosButtonClicked;
-    
     public static event EventHandler ImportantTodosButtonClicked;
     public enum ViewMode
     {
@@ -65,6 +65,11 @@ public partial class
             toDoCollection.Serialize(fileName);
 
         }
+    }
+    
+    private void DisplayHome(object sender, RoutedEventArgs e)
+    {
+        HomeButtonClicked?.Invoke(this, EventArgs.Empty);
     }
     
     private void DisplayNotes(object sender, RoutedEventArgs e)
@@ -133,12 +138,6 @@ public partial class
         {
             toDoCollection.Draw(StackPanelItems, Calendar.SelectedDate.Value, firebaseClient);
         }
-    }
-    
-    private void GoToTodaysTodos(object sender, RoutedEventArgs e)
-    {
-        CurrentView = ViewMode.DayView;
-        toDoCollection.Draw(StackPanelItems, DateTime.Today, firebaseClient);
     }
     
     

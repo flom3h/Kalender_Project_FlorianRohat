@@ -51,12 +51,12 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
-            <Button Grid.Row="0" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
-            <Button Grid.Row="1" x:Name="AllTodos" Content="Alle ToDos" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="2" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="3" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" />
-            <Button Grid.Row="4" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" />
-            <Button Grid.Row="5" x:Name="Events" Content="Events" Height="30" Margin="2, 5"/>
+            <Button Grid.Row="1" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
+            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle Todos" Height="30" Margin="2, 5" Click="DisplayAllTodos"/>
+            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5" Click="DisplayImportantTodos"/>
+            <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" Click="DisplayCalendar"/>
+            <Button Grid.Row="5" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" Click="DisplayNotes"/>
+            <Button Grid.Row="6" x:Name="Events" Content="Events" Height="30" Margin="2, 5" Click="DisplayEvents"/>
         </Grid>
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" Background="Gray" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
         
@@ -66,7 +66,7 @@
                 <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
                 <Button x:Name="PreviousMonthButton" Content="Previous Month" Width="140" Margin="5" Click="PreviousMonth_Click"/>
                 <Button x:Name="NextMonthButton" Content="Next Month" Width="140" Margin="5" Click="NextMonth_Click"/>
-                <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="3" Background="Gray" Foreground="White" FontSize="16"/>
             </StackPanel>
             <StackPanel  Orientation="Vertical" VerticalAlignment="Top" Background="#1C1C1C" Margin="0,10">
                 <Grid>

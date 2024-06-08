@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Threading;
 using Firebase.Database;
-using Firebase.Database.Query;
 
 namespace Kalender_Project_FlorianRohat.Pages;
 
@@ -9,20 +9,59 @@ public partial class EventView : Page
 {
     public static EventCollection eventCollection;
     private FirebaseClient firebaseClient;
+    public static event EventHandler NotesButtonClicked;
+    public static event EventHandler CalendarButtonClicked;
+    public static event EventHandler EventButtonClicked; 
+    public static event EventHandler AllTodosButtonClicked;
+    public static event EventHandler ImportantTodosButtonClicked;
+    public static event EventHandler HomeButtonClicked;
     public EventView()
     {
         InitializeComponent();
         eventCollection = new EventCollection();
         firebaseClient =  new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
+        DisplayTime();
         LoadEvents();
     }
     
     private void DisplayHome(object sender, RoutedEventArgs e)
     {
-        if (this.NavigationService.CanGoBack)
+        HomeButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    private void DisplayNotes(object sender, RoutedEventArgs e)
+    {
+        NotesButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayCalendar(object sender, RoutedEventArgs e)
+    {
+        CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void DisplayEvents(object sender, RoutedEventArgs e)
+    {
+        EventButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayAllTodos(object sender, RoutedEventArgs e)
+    {
+        AllTodosButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayImportantTodos(object sender, RoutedEventArgs e)
+    {
+        ImportantTodosButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayTime()
+    {
+        DispatcherTimer timer = new DispatcherTimer();
+        timer.Interval = TimeSpan.FromSeconds(1);
+        timer.Tick += (sender, e) =>
         {
-            this.NavigationService.GoBack();
-        }
+            DateDisplay.Content = DateTime.Now.ToString("hh:mm:ss tt");
+        };
+        timer.Start();
     }
     
     private async void LoadEvents()

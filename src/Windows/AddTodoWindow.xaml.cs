@@ -5,10 +5,6 @@ namespace Kalender_Project_FlorianRohat;
 public partial class AddTodoWindow : Window
 {
     public ToDo Todo { get; set; }
-    /*public AddTodoWindow()
-    {
-        InitializeComponent();
-    }*/
 
     public AddTodoWindow()
     {

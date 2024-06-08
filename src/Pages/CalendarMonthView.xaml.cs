@@ -14,6 +14,12 @@ namespace Kalender_Project_FlorianRohat
         public static ToDoCollection toDoCollection;
         private FirebaseClient firebaseClient;
         private DateTime currentDate;
+        public static event EventHandler NotesButtonClicked;
+        public static event EventHandler CalendarButtonClicked;
+        public static event EventHandler EventButtonClicked; 
+        public static event EventHandler AllTodosButtonClicked;
+        public static event EventHandler ImportantTodosButtonClicked;
+        public static event EventHandler HomeButtonClicked;
 
         private ObservableCollection<CalendarDay> _days;
         public ObservableCollection<CalendarDay> Days
@@ -154,9 +160,31 @@ namespace Kalender_Project_FlorianRohat
 
         private void DisplayHome(object sender, RoutedEventArgs e)
         {
-            var mainPage = new MainPage();
-            mainPage.Calendar.SelectedDate = currentDate;
-            this.NavigationService.Navigate(mainPage);
+            HomeButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+        private void DisplayNotes(object sender, RoutedEventArgs e)
+        {
+            NotesButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+    
+        private void DisplayCalendar(object sender, RoutedEventArgs e)
+        {
+            CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+
+        private void DisplayEvents(object sender, RoutedEventArgs e)
+        {
+            EventButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+    
+        private void DisplayAllTodos(object sender, RoutedEventArgs e)
+        {
+            AllTodosButtonClicked?.Invoke(this, EventArgs.Empty);
+        }
+    
+        private void DisplayImportantTodos(object sender, RoutedEventArgs e)
+        {
+            ImportantTodosButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }
 }

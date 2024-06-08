@@ -3,7 +3,6 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:local="clr-namespace:Kalender_Project_FlorianRohat.Pages"
       xmlns:kalenderProjectFlorianRohat="clr-namespace:Kalender_Project_FlorianRohat"
       mc:Ignorable="d"
       Title="AllTodos">
@@ -459,11 +458,11 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Viewbox>
-                <Calendar Grid.Row="0" x:Name="Calendar" SelectedDatesChanged="DateChange" CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" Style="{DynamicResource CalendarStyle1}" Margin="10, 10,10,10"/>
+                <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" Style="{DynamicResource CalendarStyle1}" Margin="10, 10,10,10"/>
             </Viewbox>
             <Button Grid.Row="1" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
-            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle Todos" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5"/>
+            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle Todos" Height="30" Margin="2, 5" Click="DisplayAllTodos"/>
+            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5" Click="DisplayImportantTodos"/>
             <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" Click="DisplayCalendar"/>
             <Button Grid.Row="5" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" Click="DisplayNotes"/>
             <Button Grid.Row="6" x:Name="Events" Content="Events" Height="30" Margin="2, 5" Click="DisplayEvents"/>
@@ -473,8 +472,7 @@
             <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
                 <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
                 <Button x:Name="Save" Content="Save" Width="140" Margin="5" Click="SaveClick"/>
-                <Label Content="Holder" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
-                <Label x:Name="DateDisplay" Content="" Width="140" Margin="5" Background="LightGray" BorderBrush="Black" BorderThickness="1"/>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="3" Background="Gray" Foreground="White" FontSize="16"/>
             </StackPanel>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="#1C1C1C">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" />

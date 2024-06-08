@@ -32,6 +32,7 @@
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Viewbox Grid.Row="0">
                 <Calendar x:Name="Calendar" VerticalAlignment="Top" HorizontalAlignment="Left" Width="Auto">
@@ -43,12 +44,12 @@
                 </Calendar>
             </Viewbox>
 
-            <Button Grid.Row="1" x:Name="Home" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
-            <Button Grid.Row="2" x:Name="DayView" Content="Mein Tag" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle ToDos" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5"/>
-            <Button Grid.Row="5" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5"/>
+            <Button Grid.Row="1" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
+            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle Todos" Height="30" Margin="2, 5" Click="DisplayAllTodos"/>
+            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5" Click="DisplayImportantTodos"/>
+            <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" Click="DisplayCalendar"/>
+            <Button Grid.Row="5" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" Click="DisplayNotes"/>
+            <Button Grid.Row="6" x:Name="Events" Content="Events" Height="30" Margin="2, 5" Click="DisplayEvents"/>
         </Grid>
         <GridSplitter Grid.Column="1" Width="1" HorizontalAlignment="Left" Background="Gray" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
         <StackPanel Grid.Column="2" >

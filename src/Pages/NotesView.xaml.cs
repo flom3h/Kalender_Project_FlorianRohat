@@ -13,6 +13,12 @@ public partial class NotesView : Page
     public static event Action DisplayAllTodosEvent;
     private FirebaseClient firebaseClient;
     public Note? openedNote;
+    public static event EventHandler NotesButtonClicked;
+    public static event EventHandler CalendarButtonClicked;
+    public static event EventHandler EventButtonClicked; 
+    public static event EventHandler AllTodosButtonClicked;
+    public static event EventHandler ImportantTodosButtonClicked;
+    public static event EventHandler HomeButtonClicked; 
     
     public NotesView()
     {
@@ -62,7 +68,7 @@ public partial class NotesView : Page
         }
     }
     
-    private async void SaveNote(object sender, RoutedEventArgs e)
+    private void SaveNote(object sender, RoutedEventArgs e)
     {
         if (openedNote != null)
         {
@@ -83,16 +89,32 @@ public partial class NotesView : Page
 
     private void DisplayHome(object sender, RoutedEventArgs e)
     {
-        if (this.NavigationService.CanGoBack)
-        {
-            this.NavigationService.GoBack();
-        }
+        HomeButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayNotes(object sender, RoutedEventArgs e)
+    {
+        NotesButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayCalendar(object sender, RoutedEventArgs e)
+    {
+        CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void DisplayEvents(object sender, RoutedEventArgs e)
+    {
+        EventButtonClicked?.Invoke(this, EventArgs.Empty);
     }
     
     private void DisplayAllTodos(object sender, RoutedEventArgs e)
     {
-        this.NavigationService.Navigate(new MainPage());
-        DisplayAllTodosEvent?.Invoke();
+        AllTodosButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayImportantTodos(object sender, RoutedEventArgs e)
+    {
+        ImportantTodosButtonClicked?.Invoke(this, EventArgs.Empty);
     }
     
     private void DisplayTime()

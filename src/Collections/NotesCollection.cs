@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using System.Windows;
 using System.Windows.Controls;
 using Firebase.Database;
 using Firebase.Database.Query;
@@ -42,9 +41,9 @@ public class NotesCollection
         }
     }
 
-    public async void Draw(StackPanel NoteButtonPanel, NotesView notesView, FirebaseClient firebaseClient)
+    public async void Draw(StackPanel noteButtonPanel, NotesView notesView, FirebaseClient firebaseClient)
     {
-        NoteButtonPanel.Children.Clear();
+        noteButtonPanel.Children.Clear();
         
         var notes = await firebaseClient
             .Child("Notes")
@@ -61,7 +60,7 @@ public class NotesCollection
                 notesView.openedNote = note;
                 notesView.NoteTextBox.Text = note.Text;
             };
-            NoteButtonPanel.Children.Add(noteItemControl);
+            noteButtonPanel.Children.Add(noteItemControl);
         }
     }
 

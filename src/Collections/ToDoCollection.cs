@@ -5,7 +5,6 @@ using Firebase.Database;
 using System.Windows.Media;
 using Firebase.Database.Query;
 using System.Windows;
-using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 
 namespace Kalender_Project_FlorianRohat
@@ -83,7 +82,15 @@ namespace Kalender_Project_FlorianRohat
                             Height = 20
                         };
                     }
-                    
+                    if (todo.IsDone)
+                    {
+                        todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                    }
+                    else
+                    {
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                    }
                     todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
                         todo.IsImportant = !todo.IsImportant;
@@ -199,7 +206,15 @@ namespace Kalender_Project_FlorianRohat
                             Height = 20
                         };
                     }
-                    
+                    if (todo.IsDone)
+                    {
+                        todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                    }
+                    else
+                    {
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                    }
                     todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
                         todo.IsImportant = !todo.IsImportant;
@@ -318,7 +333,15 @@ namespace Kalender_Project_FlorianRohat
                         Height = 20
                     };
                 }
-                
+                if (todo.IsDone)
+                {
+                    todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
+                    todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                }
+                else
+                {
+                    todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                }
                 todoItemControl.ImportantButton.Click += async (sender, e) =>
                 {
                     todo.IsImportant = !todo.IsImportant;

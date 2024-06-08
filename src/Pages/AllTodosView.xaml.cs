@@ -14,6 +14,9 @@ public partial class AllTodosView : Page
     public static event EventHandler NotesButtonClicked;
     public static event EventHandler CalendarButtonClicked;
     public static event EventHandler EventButtonClicked; 
+    public static event EventHandler AllTodosButtonClicked;
+    public static event EventHandler ImportantTodosButtonClicked;
+    public static event EventHandler HomeButtonClicked;
     
     public AllTodosView()
     {
@@ -74,15 +77,17 @@ public partial class AllTodosView : Page
     
     private void DisplayHome(object sender, RoutedEventArgs e)
     {
-        if (this.NavigationService.CanGoBack)
-        {
-            this.NavigationService.GoBack();
-        }
+        HomeButtonClicked?.Invoke(this, EventArgs.Empty);
     }
-
-    private void OnTodoAdded(object sender, EventArgs e)
+    
+    private void DisplayAllTodos(object sender, RoutedEventArgs e)
     {
-        LoadTodos();
+        AllTodosButtonClicked?.Invoke(this, EventArgs.Empty);
+    }
+    
+    private void DisplayImportantTodos(object sender, RoutedEventArgs e)
+    {
+        ImportantTodosButtonClicked?.Invoke(this, EventArgs.Empty);
     }
     
     private async void LoadTodos()
