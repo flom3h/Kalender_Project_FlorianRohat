@@ -21,23 +21,23 @@
             <TextBlock x:Name="TodoText" Grid.Column="0" Text="Todo Text" Margin="2" Foreground="#FFFFFF" FontSize="14"/>
             <TextBlock x:Name="TodoDate" Grid.Column="1" Text="Date" Margin="2" Foreground="#FFFFFF" FontSize="14"/>
 
-            <Button x:Name="ImportantButton" Grid.Column="2" Margin="5, 0" Background="Transparent" BorderBrush="Transparent" FocusVisualStyle="{x:Null}">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <ContentPresenter Content="{TemplateBinding Content}"/>
-                    </ControlTemplate>
-                </Button.Template>
-                <materialDesign:PackIcon x:Name="StarIcon" Kind="Star" Height="18" Width="18" Foreground="White" Opacity="1">
-                    <materialDesign:PackIcon.Style>
-                        <Style TargetType="materialDesign:PackIcon">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding IsMouseOver, RelativeSource={RelativeSource AncestorType=Button}}" Value="True">
-                                    <Setter Property="Opacity" Value="0.6"/>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </materialDesign:PackIcon.Style>
-                </materialDesign:PackIcon>
+            <Button x:Name="ImportantButton" Grid.Column="2" Margin="5, 0" Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="ButtonImportant" Source="../images/star.png" Width="25" Height="25"/>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsMouseOver" Value="True">
+                                            <Setter TargetName="ButtonImportant" Property="Source" Value="../images/starcolor.png"/>
+                                        </Trigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </Button.Style>
             </Button>
             
             <Button x:Name="EditButton" Grid.Column="3" Margin="5,0"  Background="Transparent" BorderBrush="Transparent" VerticalAlignment="Center" HorizontalAlignment="Center">

@@ -68,7 +68,6 @@ namespace Kalender_Project_FlorianRohat
                     todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
                         
-                        todoItemControl.StarIcon.Foreground = Brushes.Yellow;
                     };
 
                     todoItemControl.CheckButton.Click += async (sender, e) =>

@@ -24,7 +24,6 @@ namespace Kalender_Project_FlorianRohat
         public TodoItemControl()
         {
             InitializeComponent();
-            StarIcon = this.FindName("StarIcon") as MaterialDesignThemes.Wpf.PackIcon;
         }
 
     }
