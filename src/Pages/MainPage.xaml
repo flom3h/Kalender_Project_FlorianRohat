@@ -547,7 +547,7 @@
                     </Button.Template>
                     <Image Source="../images/save.png"></Image>
                 </Button>
-                <Label x:Name="DateDisplay" Content="" Width="140" Margin="3" Background="Gray" Foreground="White" FontSize="18" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="3" Background="Transparent" Foreground="White" FontSize="18" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             </DockPanel>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="#1C1C1C">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" />
