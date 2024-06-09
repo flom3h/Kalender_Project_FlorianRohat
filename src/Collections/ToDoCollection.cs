@@ -77,6 +77,7 @@ namespace Kalender_Project_FlorianRohat
                     {
                         todoItemControl.ImportantButton.Content = new Image
                         {
+                            
                             Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative)),
                             Width = 20,
                             Height = 20
