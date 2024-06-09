@@ -62,6 +62,32 @@ namespace Kalender_Project_FlorianRohat
         {
             Log.log.Information("TodoCollection: Draw function called, drawing todos to stackpanel");
             stackPanel.Children.Clear();
+            
+            StackPanel headerPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(40,15,40,15),
+            };
+
+            Image headerImage = new Image
+            {
+                Source = new BitmapImage(new Uri("../images/homeImg.png", UriKind.Relative)),
+                Width = 32,
+                Height = 32,
+                Margin = new Thickness(0, 0, 10, 0), 
+            };
+            headerPanel.Children.Add(headerImage);
+
+            Label headerLabel = new Label
+            {
+                Content = "Home",
+                FontSize = 27,
+                Foreground = Brushes.White,
+            };
+            headerPanel.Children.Add(headerLabel);
+
+            stackPanel.Children.Add(headerPanel);
+
             foreach (ToDo todo in ToDoList)
             {
                 if (todo.TodoDate.Date == selectedDate.Date)
@@ -189,7 +215,33 @@ namespace Kalender_Project_FlorianRohat
         {
             Log.log.Information("TodoCollection: DrawAllTodos function called, drawing all todos to stackpanel");
             stackPanel.Children.Clear();
+            
+            StackPanel headerPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(40,15,40,0),
+            };
 
+            Image headerImage = new Image
+            {
+                Source = new BitmapImage(new Uri("../images/taskkImg.png", UriKind.Relative)),
+                Width = 30,
+                Height = 30,
+                Margin = new Thickness(0, 0, 10, 0), 
+            };
+            headerPanel.Children.Add(headerImage);
+
+            Label headerLabel = new Label
+            {
+                Content = "Alle Todos",
+                FontSize = 26,
+                Foreground = Brushes.White,
+            };
+            headerPanel.Children.Add(headerLabel);
+
+            stackPanel.Children.Add(headerPanel);
+
+            
             var groupedTodos = ToDoList
                 .GroupBy(todo => todo.TodoDate) 
                 .OrderBy(group => group.Key); 
@@ -200,9 +252,8 @@ namespace Kalender_Project_FlorianRohat
                 {
                     Content = group.Key.ToString("dd/MM/yyyy"),
                     FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(0, 10, 0, 0),
+                    Margin = new Thickness(40,20,40,5),
                     Foreground = Brushes.White,
-                    
                 };
 
                 stackPanel.Children.Add(dateLabel);
@@ -210,6 +261,8 @@ namespace Kalender_Project_FlorianRohat
                 foreach (var todo in group)
                 {
                     TodoItemControl todoItemControl = new TodoItemControl();
+                    todoItemControl.Margin = new Thickness(40,2,40,10);
+
                     todoItemControl.TodoText.Text = todo.Title;
                     todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
 
@@ -327,128 +380,163 @@ namespace Kalender_Project_FlorianRohat
         {
             Log.log.Information("TodoCollection: DrawImportantTodos function called, drawing important todos to stackpanel");
             stackPanel.Children.Clear();
+            
+            StackPanel headerPanel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                Margin = new Thickness(40,15,40,0),
+            };
+
+            Image headerImage = new Image
+            {
+                Source = new BitmapImage(new Uri("../images/starrImg.png", UriKind.Relative)),
+                Width = 32,
+                Height = 32,
+                Margin = new Thickness(0, 0, 10, 0), 
+            };
+            headerPanel.Children.Add(headerImage);
+
+            Label headerLabel = new Label
+            {
+                Content = "Wichtig",
+                FontSize = 26,
+                Foreground = Brushes.White,
+            };
+            headerPanel.Children.Add(headerLabel);
+
+            stackPanel.Children.Add(headerPanel);
+            
             var importantTodos = ToDoList
                 .Where(todo => todo.IsImportant)
                 .OrderBy(todo => todo.TodoDate);
-
-            foreach (var todo in importantTodos)
+            
+            var groupedTodos = importantTodos
+                .GroupBy(todo => todo.TodoDate.Date)
+                .OrderBy(group => group.Key);
+            
+            foreach (var group in groupedTodos)
             {
                 Label info = new Label
                 {
-                    Content = todo.TodoDate.ToString("dd/MM/yyyy"),
+                    Content = group.Key.ToString("dd/MM/yyyy"),
                     FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(0, 10, 0, 0),
                     Foreground = Brushes.White,
-                    
+                    Margin = new Thickness(40,20,40,5),
+
                 };
 
                 stackPanel.Children.Add(info);
-                
-                TodoItemControl todoItemControl = new TodoItemControl();
-                todoItemControl.TodoText.Text = todo.Title;
-                todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
-                todo.IsImportant = true;
-                string key = TodoKeys[todo];
-                Log.log.Information("TodoCollection: Checking if todo is important");
-                if (todo.IsImportant)
-                {
-                    todoItemControl.ImportantButton.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative)),
-                        Width = 20,
-                        Height = 20
-                    };
-                }
-                else
-                {
-                    todoItemControl.ImportantButton.Content = new Image
-                    {
-                        Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative)),
-                        Width = 20,
-                        Height = 20
-                    };
-                }
-                todoItemControl.ImportantButton.Click += async (sender, e) =>
-                {
-                    Log.log.Information("TodoCollection: Important button clicked, changing important status");
-                    todo.IsImportant = !todo.IsImportant;
-                    var buttonContent = todoItemControl.ImportantButton.Content as Image;
-                    Log.log.Information("TodoCollection: Checking if content of button is null");
-                    if (buttonContent != null)
-                    {
-                        Log.log.Information("TodoCollection: Checking if todo is important");
-                        if (todo.IsImportant)
-                        {
-                            buttonContent.Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative));
-                        }
-                        else
-                        {
-                            buttonContent.Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative));
-                        }
-                        Log.log.Information("TodoCollection: Updating Firebase database after change");
-                        await firebaseClient
-                            .Child("Todo")
-                            .Child(key)
-                            .PutAsync(todo);
-                    }
-                    DrawImportantTodos(stackPanel, firebaseClient);
-                };
 
-                todoItemControl.CheckButton.Click += async (sender, e) =>
+                foreach (var todo in group)
                 {
-                    Log.log.Information("TodoCollection: Check button clicked, changing done status");
-                    todo.IsDone = !todo.IsDone;
-                    Log.log.Information("TodoCollection: Checking if todo is done");
-                    if (todo.IsDone)
+                    TodoItemControl todoItemControl = new TodoItemControl();
+                    todoItemControl.Margin = new Thickness(40,2,40,10);
+                    todoItemControl.TodoText.Text = todo.Title;
+                    todoItemControl.TodoDate.Text = todo.TodoDate.ToString("dd.MM.yyyy");
+                    todo.IsImportant = true;
+                    string key = TodoKeys[todo];
+                    Log.log.Information("TodoCollection: Checking if todo is important");
+                    if (todo.IsImportant)
                     {
-                        todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
-                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                        todoItemControl.ImportantButton.Content = new Image
+                        {
+                            Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative)),
+                            Width = 20,
+                            Height = 20
+                        };
                     }
                     else
                     {
-                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                        todoItemControl.ImportantButton.Content = new Image
+                        {
+                            Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative)),
+                            Width = 20,
+                            Height = 20
+                        };
                     }
-                    Log.log.Information("TodoCollection: Updating Firebase database after change");
-                    await firebaseClient
-                        .Child("Todo")
-                        .Child(key)
-                        .PutAsync(todo);
-                };
-                todoItemControl.DeleteButton.Click += async (sender, e) =>
-                {
-                    Log.log.Information("TodoCollection: Delete button clicked, removing todo");
-                    Remove(todo);
-                    stackPanel.Children.Remove(todoItemControl);
-                    Log.log.Information("TodoCollection: Updating Firebase database after change");
-                    await firebaseClient
-                        .Child("Todo")
-                        .Child(key)
-                        .DeleteAsync();
-                };
-                todoItemControl.EditButton.Click += async (sender, e) =>
-                {
-                    Log.log.Information("TodoCollection: Edit button clicked, opening edit window");
-                    AddTodoWindow editTodoWindow = new AddTodoWindow(todo);
-                    Log.log.Information("TodoCollection: Checking if edit window is true");
-                    if (editTodoWindow.ShowDialog() == true)
+                    todoItemControl.ImportantButton.Click += async (sender, e) =>
                     {
-                        Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
+                        Log.log.Information("TodoCollection: Important button clicked, changing important status");
+                        todo.IsImportant = !todo.IsImportant;
+                        var buttonContent = todoItemControl.ImportantButton.Content as Image;
+                        Log.log.Information("TodoCollection: Checking if content of button is null");
+                        if (buttonContent != null)
+                        {
+                            Log.log.Information("TodoCollection: Checking if todo is important");
+                            if (todo.IsImportant)
+                            {
+                                buttonContent.Source = new BitmapImage(new Uri("../Images/starfilled.png", UriKind.Relative));
+                            }
+                            else
+                            {
+                                buttonContent.Source = new BitmapImage(new Uri("../Images/star.png", UriKind.Relative));
+                            }
+                            Log.log.Information("TodoCollection: Updating Firebase database after change");
+                            await firebaseClient
+                                .Child("Todo")
+                                .Child(key)
+                                .PutAsync(todo);
+                        }
                         DrawImportantTodos(stackPanel, firebaseClient);
-                        string key = TodoKeys[todo];
+                    };
+
+                    todoItemControl.CheckButton.Click += async (sender, e) =>
+                    {
+                        Log.log.Information("TodoCollection: Check button clicked, changing done status");
+                        todo.IsDone = !todo.IsDone;
+                        Log.log.Information("TodoCollection: Checking if todo is done");
+                        if (todo.IsDone)
+                        {
+                            todoItemControl.Background = new SolidColorBrush(Color.FromRgb(28, 28, 28));
+                            todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
+                        }
+                        else
+                        {
+                            todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromRgb(42, 42, 42));
+                        }
                         Log.log.Information("TodoCollection: Updating Firebase database after change");
                         await firebaseClient
                             .Child("Todo")
                             .Child(key)
                             .PutAsync(todo);
+                    };
+                    todoItemControl.DeleteButton.Click += async (sender, e) =>
+                    {
+                        Log.log.Information("TodoCollection: Delete button clicked, removing todo");
+                        Remove(todo);
+                        stackPanel.Children.Remove(todoItemControl);
+                        Log.log.Information("TodoCollection: Updating Firebase database after change");
+                        await firebaseClient
+                            .Child("Todo")
+                            .Child(key)
+                            .DeleteAsync();
+                    };
+                    todoItemControl.EditButton.Click += async (sender, e) =>
+                    {
+                        Log.log.Information("TodoCollection: Edit button clicked, opening edit window");
+                        AddTodoWindow editTodoWindow = new AddTodoWindow(todo);
+                        Log.log.Information("TodoCollection: Checking if edit window is true");
+                        if (editTodoWindow.ShowDialog() == true)
+                        {
+                            Edit(todo, editTodoWindow.Todo.Title, editTodoWindow.Todo.TodoDate);
+                            DrawImportantTodos(stackPanel, firebaseClient);
+                            string key = TodoKeys[todo];
+                            Log.log.Information("TodoCollection: Updating Firebase database after change");
+                            await firebaseClient
+                                .Child("Todo")
+                                .Child(key)
+                                .PutAsync(todo);
+                        }
+                    };
+                    Log.log.Information("TodoCollection: Checking if todo is done");
+                    if (todo.IsDone)
+                    {
+                        todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
                     }
-                };
-                Log.log.Information("TodoCollection: Checking if todo is done");
-                if (todo.IsDone)
-                {
-                    todoItemControl.TodoItemBorder.Background = new SolidColorBrush(Color.FromArgb(204, 144, 238, 144));
-                }
-                Log.log.Information("TodoCollection: Adding todo to stackpanel");
-                stackPanel.Children.Add(todoItemControl);
+                    Log.log.Information("TodoCollection: Adding todo to stackpanel");
+                    stackPanel.Children.Add(todoItemControl);
+                    }
+                
             }
         }
         public int DrawDay(DateTime date)

@@ -460,24 +460,100 @@
             <Viewbox>
                 <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" Style="{DynamicResource CalendarStyle1}" Margin="10, 10,10,10"/>
             </Viewbox>
-            <Button Grid.Row="1" x:Name="DayView" Content="Home" Height="30" Margin="2, 5" Click="DisplayHome"/>
-            <Button Grid.Row="2" x:Name="AllTodos" Content="Alle Todos" Height="30" Margin="2, 5" Click="DisplayAllTodos"/>
-            <Button Grid.Row="3" x:Name="Important" Content="Wichtig" Height="30" Margin="2, 5" Click="DisplayImportantTodos"/>
-            <Button Grid.Row="4" x:Name="CalendarView" Content="Kalendar" Height="30" Margin="2, 5" Click="DisplayCalendar"/>
-            <Button Grid.Row="5" x:Name="Notes" Content="Notizen" Height="30" Margin="2, 5" Click="DisplayNotes"/>
-            <Button Grid.Row="6" x:Name="Events" Content="Events" Height="30" Margin="2, 5" Click="DisplayEvents"/>
+            
+            <Button Grid.Row="1" x:Name="DayView" Height="30" Margin="2, 5" Click="DisplayHome">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../images/homeImg.png" Height="27"/>
+                    <TextBlock Grid.Column="1" Text="Home" VerticalAlignment="Center" Margin="10 0, 0 ,0" HorizontalAlignment="Left"/>
+                </Grid>
+            </Button>        
+
+            <Button Grid.Row="2" x:Name="AllTodos" Height="30" Margin="2, 10" Click="DisplayAllTodos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../images/taskkImg.png" Height="25" Margin="1,0,0,0"/>
+                    <TextBlock Grid.Column="1" Text="Alle Todos" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="11.5,0,0,0"/>
+                </Grid>
+            </Button>  
+            <Button Grid.Row="3" x:Name="Important" Height="30" Margin="2, 9" Click="DisplayImportantTodos">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../images/starrImg.png" Margin="0,0,0,1"/>
+                    <TextBlock Grid.Column="1" Text="Wichtig" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="11,0,0,0"/>
+                </Grid>
+            </Button>
+
+            <Button Grid.Row="4" x:Name="CalendarView" Height="30" Margin="2, 10" Click="DisplayCalendar">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../images/calendarrImg.png" Height="25" Margin="1,0,0,0"/>
+                    <TextBlock Grid.Column="1" Text="Kalendar" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="11.5,0,0,0"/>
+                </Grid>
+            </Button>
+
+            <Button Grid.Row="5" x:Name="Notes" Height="30" Margin="2, 10" Click="DisplayNotes">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../images/notessImg.png" Height="25" Margin="1,0,0,0"/>
+                    <TextBlock Grid.Column="1" Text="Notizen" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="13,0,0,0"/>
+                </Grid>
+            </Button>
+
+            <Button Grid.Row="6" x:Name="Events" Height="30" Margin="2, 10" Click="DisplayEvents">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Image Grid.Column="0" Source="../images/eventtImg.png" Height="25" Margin="2,0,0,0"/>
+                    <TextBlock Grid.Column="1" Text="Events" VerticalAlignment="Center" Margin="12 0, 0 ,0" HorizontalAlignment="Left"/>
+                </Grid>
+            </Button>
         </Grid>
+        
         <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Left" Background="Gray" ResizeDirection="Columns" ResizeBehavior="PreviousAndNext"/>
         <DockPanel Grid.Column="2">
-            <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" VerticalAlignment="Top" Height="35" Background="Gray">
-                <Button x:Name="Add" Content="Add" Width="140" Margin="5" Click="AddClick"/>
-                <Button x:Name="Save" Content="Save" Width="140" Margin="5" Click="SaveClick"/>
-                <Label x:Name="DateDisplay" Content="" Width="140" Margin="3" Background="Gray" Foreground="White" FontSize="16"/>
-            </StackPanel>
+            
+            <DockPanel DockPanel.Dock="Top" Background="#2A2A2A" LastChildFill="False">
+                <Button x:Name="Add" Click="AddClick" Height="40" Margin="15,5,5,5" DockPanel.Dock="Left" Cursor="Hand" ToolTip="Erstelle eine ToDo">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="../images/abe.png"></Image>
+                </Button>
+                <Button x:Name="Save" Click="SaveClick" Height="40" Margin="15,5,5,5"  DockPanel.Dock="Left" Cursor="Hand" ToolTip="Speichere die ToDos">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </ControlTemplate>
+                    </Button.Template>
+                    <Image Source="../images/save.png"></Image>
+                </Button>
+                <Label x:Name="DateDisplay" Content="" Width="140" Margin="3" Background="Transparent" Foreground="White" FontSize="18" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </DockPanel>
             <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" CanContentScroll="True" Background="#1C1C1C">
                 <StackPanel Orientation="Vertical" VerticalAlignment="Top" Height="Auto" x:Name="StackPanelItems" />
-            </ScrollViewer>
+            </ScrollViewer>     
         </DockPanel>
     </Grid>
+
 
 </Page>
