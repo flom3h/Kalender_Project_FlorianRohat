@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Threading;
 using Firebase.Database;
+using Microsoft.Win32;
 
 namespace Kalender_Project_FlorianRohat.Pages;
 
@@ -71,6 +72,22 @@ public partial class EventView : Page
             DateDisplay.Content = DateTime.Now.ToString("hh:mm:ss tt");
         };
         timer.Start();
+    }
+    
+    private void SaveEvent(object sender, RoutedEventArgs e)
+    {
+        Log.log.Information("EventView: SaveNote function called, opening SaveFileDialog");
+        Log.log.Information("EventView: Check if note is opened");
+        SaveFileDialog saveFileDialog = new SaveFileDialog();
+        saveFileDialog.Title = "Save Note";
+        saveFileDialog.Filter = "Text File|*.txt";
+        saveFileDialog.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+        Log.log.Information("EventView: Check if SaveFileDialog is true");
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            Log.log.Information("EventView: SaveFileDialog is true, writing note to text file");
+            eventCollection.Serialize(saveFileDialog.FileName);
+        }
     }
     
     private async void LoadEvents()
