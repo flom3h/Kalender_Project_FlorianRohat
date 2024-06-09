@@ -597,7 +597,7 @@
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <Border BorderBrush="#2a2a2a" BorderThickness="2">
-                                <Button Background="Transparent" Click="Day_Click" Height="112" VerticalAlignment="Stretch">
+                                <Button Background="Transparent" Click="Day_Click" Height="112" VerticalAlignment="Stretch" Cursor="Hand" >
                                     <StackPanel VerticalAlignment="Top">
                                         <TextBlock Text="{Binding Date.Day}" HorizontalAlignment="Center" VerticalAlignment="Top"  />
                                         <TextBlock Text="{Binding TasksCount, Converter={StaticResource TaskCountConverter}}" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,5,0,0"/>   
