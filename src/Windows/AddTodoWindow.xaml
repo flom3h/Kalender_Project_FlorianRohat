@@ -9,7 +9,7 @@
         Title="Todo" MinHeight="274" MaxHeight="275" MaxWidth="300" MinWidth="299" Background="#2a2a2a">
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Vertical" Background="#272727"  MinHeight="274" MaxHeight="275" MaxWidth="300" MinWidth="299">
-            <TextBlock Text="Erstelle eine Todo" FontSize="20" Margin="15 25,0,0" Foreground="#506e76" Background="#323232"></TextBlock>
+            <TextBlock Text="Erstelle eine Todo" FontSize="20" Margin="15 25,0,0" Foreground="#678D97" Background="#323232"></TextBlock>
             <xctk:WatermarkTextBox x:Name="TodoInput" Width="200" Watermark="Todo Titel..." Background="#323232" BorderBrush="Transparent" Height="50" FontSize="15" Foreground="#FFFFFF" Margin="0,30,0,10"/>
             <DatePicker x:Name="TodoDate" Width="180" Margin="10" HorizontalAlignment="Center" VerticalAlignment="Center" BorderBrush="Transparent" Background="#272727" Height="30" Foreground="#FFFFFF">
                 <DatePicker.Resources>
