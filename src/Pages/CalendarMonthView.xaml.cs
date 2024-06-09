@@ -91,7 +91,7 @@ namespace Kalender_Project_FlorianRohat
                 Days.Add(new CalendarDay(date, tasksCount));
             }
         }
-
+       
         private void Day_Click(object sender, RoutedEventArgs e)
         {
             Log.log.Information("CalendarMonthView: DayElement clicked, navigating to MainPage");

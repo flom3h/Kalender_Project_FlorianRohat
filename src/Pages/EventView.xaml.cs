@@ -98,7 +98,7 @@ public partial class EventView : Page
             eventCollection.Add(Holiday.Object);
         }
         Log.log.Information("EventView: Drawing events to stackPanel");
-        eventCollection.Draw(stackPanel, firebaseClient);
+        eventCollection.Draw(StackPanelItem, firebaseClient);
 
         /*else
         {
