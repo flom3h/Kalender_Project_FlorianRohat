@@ -6,6 +6,7 @@
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         mc:Ignorable="d"
         Title="Notiz" MaxHeight="240" MinHeight="239" MaxWidth="300" MinWidth="299">
+    
     <Grid>
         <StackPanel HorizontalAlignment="Left" VerticalAlignment="Bottom" Orientation="Vertical" Background="#2a2a2a" MaxHeight="240" MinHeight="239" MaxWidth="300" MinWidth="299" >
             <TextBlock Text="Erstelle eine Notiz" FontSize="20" Margin="10 45,0,0" Foreground="#678D97" Background="#323232"></TextBlock>
