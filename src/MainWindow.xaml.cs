@@ -11,6 +11,7 @@ namespace Kalender_Project_FlorianRohat
     {
         public MainWindow()
         {
+            Log.log.Information("Application started");
             InitializeComponent();
             MainFrame.Navigate(new MainPage());
             MainPage.NotesButtonClicked += DisplayNotes;
@@ -49,42 +50,48 @@ namespace Kalender_Project_FlorianRohat
             CalendarMonthView.EventButtonClicked += DisplayEvents;
             CalendarMonthView.AllTodosButtonClicked += DisplayAllTodos;
             CalendarMonthView.ImportantTodosButtonClicked += DisplayImportantTodos;
-            
+            Log.log.Information("All components loaded successfully");
         }
         private void DisplayNotes(object sendefr, System.EventArgs e)
         {
             NotesView notesView = new NotesView();
             MainFrame.Navigate(notesView);
+            Log.log.Information("Displaying NotesView");
         } 
         
         private void DisplayCalendar(object sendefr, System.EventArgs e)
         {
             CalendarMonthView monthView = new CalendarMonthView();
             MainFrame.Navigate(monthView);
+            Log.log.Information("Displaying CalendarView");
         }
         
         private void DisplayEvents (object sendefr, System.EventArgs e)
         {
             EventView eventView = new EventView();
             MainFrame.Navigate(eventView);
+            Log.log.Information("Displaying EventView");
         }
         
         private void DisplayAllTodos (object sendefr, System.EventArgs e)
         {
             AllTodosView allTodosPage = new AllTodosView();
             MainFrame.Navigate(allTodosPage);
+            Log.log.Information("Displaying AllTodosView");
         }
         
         private void DisplayImportantTodos (object sendefr, System.EventArgs e)
         {
             ImportantView importantView = new ImportantView();
             MainFrame.Navigate(importantView);
+            Log.log.Information("Displaying ImportantView");
         }
         
         private void DisplayHome (object sendefr, System.EventArgs e)
         {
             MainPage mainPage = new MainPage();
             MainFrame.Navigate(mainPage);
+            Log.log.Information("Displaying MainPage");
         }
     }
 }

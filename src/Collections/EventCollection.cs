@@ -13,11 +13,13 @@ public class EventCollection
     
     public void Add(Event Event)
     {
+        Log.log.Information("EventCollection: Add function called, adding event to list");
         EventsList.Add(Event);
     }
     
     public void Serialize(string filename)
     {
+        Log.log.Information("EventCollection: Serialize function called, writing events to Json file");
         using (StreamWriter stream = new StreamWriter(filename))
         {
             foreach (var Event in EventsList)
@@ -30,6 +32,7 @@ public class EventCollection
     
     public void Draw(StackPanel stackPanel, FirebaseClient firebaseClient)
     {
+        Log.log.Information("EventCollection: Draw function called, drawing events to stackpanel");
         stackPanel.Children.Clear();
         foreach (Event events in EventsList.OrderBy(e => e.Date))
         {

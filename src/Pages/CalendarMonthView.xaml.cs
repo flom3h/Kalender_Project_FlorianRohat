@@ -38,32 +38,35 @@ namespace Kalender_Project_FlorianRohat
         
         public CalendarMonthView()
         {
+            Log.log.Information("CalendarMonthView opened");
             InitializeComponent();
             DisplayTime();
             DataContext = this;
 
             toDoCollection = new ToDoCollection();
-            toDoCollection.TodoAdded += OnTodoAdded; // Subscribe to the event
+            toDoCollection.TodoAdded += OnTodoAdded;
             firebaseClient = new FirebaseClient("https://kalenderprojectflorianro-default-rtdb.europe-west1.firebasedatabase.app/");
-            
             currentDate = DateTime.Today;
             _days = new ObservableCollection<CalendarDay>();
-            LoadTodosAsync(); // Call the method to load todos asynchronously
+            LoadTodosAsync();
             FillDays(currentDate);
-            
+            Log.log.Information("CalendarMonthView initialized, components loaded");
         }
         
         private async void LoadTodosAsync()
         {
+            Log.log.Information("CalendarMonthView: LoadTodosAsync function called");
             await LoadTodos();
         }
 
         private async Task LoadTodos()
         {
+            Log.log.Information("CalendarMonthView: LoadTodos function called, loading todos from firebase");
             var todos = await firebaseClient
                 .Child("Todo")
                 .OnceAsync<ToDo>();
 
+            Log.log.Information("CalendarMonthView: Adding todos to collection");
             foreach (var todo in todos)
             {
                 toDoCollection.Add(todo.Object, todo.Key);
@@ -72,15 +75,15 @@ namespace Kalender_Project_FlorianRohat
 
         private void FillDays(DateTime startDate)
         {
+            Log.log.Information("CalendarMonthView: FillDays function called, filling days with todos");
             Days.Clear();
 
-            // Calculate the first day to show (the Monday of the week that includes startDate)
             DateTime firstDayToShow = startDate.AddDays(-(int)startDate.DayOfWeek + (int)DayOfWeek.Monday);
-
-            // Calculate the last day to show (27 days from the first day to show)
+            
             DateTime lastDayToShow = firstDayToShow.AddDays(27);
-
-            // Fill the days from the calculated first day to the last day
+            
+            Log.log.Information("CalendarMonthView: Drawing each day");
+            Log.log.Information("TodoCollection: DrawDay function called, returning number of todos for the date");
             for (DateTime date = firstDayToShow; date <= lastDayToShow; date = date.AddDays(1))
             {
                 int tasksCount = toDoCollection.DrawDay(date);
@@ -90,9 +93,9 @@ namespace Kalender_Project_FlorianRohat
 
         private void Day_Click(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: DayElement clicked, navigating to MainPage");
             var button = (Button)sender;
             var clickedDay = (CalendarDay)button.DataContext;
-
             var mainPage = new MainPage();
             mainPage.Calendar.SelectedDate = clickedDay.Date;
             this.NavigationService.Navigate(mainPage);
@@ -100,23 +103,29 @@ namespace Kalender_Project_FlorianRohat
 
         private void OnTodoAdded(object sender, EventArgs e)
         {
+            Log.log.Information("CalendarMonthView: OnTodoAdded function called, calling FillDays function");
             FillDays(currentDate);
         }
 
         private async void AddClick(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: Add button clicked, opening AddTodoWindow");
             AddTodoWindow addTodoWindow = new AddTodoWindow();
+            Log.log.Information("CalendarMonthView: Checking if AddTodoWindow is true");
             if (addTodoWindow.ShowDialog() == true)
             {
+                Log.log.Information("CalendarMonthView: AddTodoWindow is true, adding todo to firebase");
                 var addedTodo = await firebaseClient
                     .Child("Todo")
                     .PostAsync(addTodoWindow.Todo);
+                Log.log.Information("CalendarMonthView: Adding todo to collection");
                 toDoCollection.Add(addTodoWindow.Todo, addedTodo.Key);
             }
         }
 
         private void DisplayTime()
         {
+            Log.log.Information("CalendarMonthView: DisplayTime function called, starting timer to display time");
             DispatcherTimer timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += (sender, e) =>
@@ -130,11 +139,13 @@ namespace Kalender_Project_FlorianRohat
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
+            Log.log.Information("CalendarMonthView: OnPropertyChanged function called, updating property");
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void NextMonth()
         {
+            Log.log.Information("CalendarMonthView: NextMonth function called, drawing next month");
             DateTime lastDayDisplayed = Days.Last().Date;
             currentDate = lastDayDisplayed.AddDays(1);
             FillDays(currentDate);
@@ -142,48 +153,57 @@ namespace Kalender_Project_FlorianRohat
 
         private void NextMonth_Click(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: NextMonth button clicked, changing to next month");
             NextMonth();
             OnPropertyChanged(nameof(Days));
         }
 
         private void PreviousMonth()
         {
+            Log.log.Information("CalendarMonthView: PreviousMonth function called, drawing previous month");
             currentDate = currentDate.AddDays(-28);
             FillDays(currentDate);
         }
 
         private void PreviousMonth_Click(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: PreviousMonth button clicked, changing to previous month");
             PreviousMonth();
             OnPropertyChanged(nameof(Days));
         }
 
         private void DisplayHome(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: Home button clicked, changing to MainPage");
             HomeButtonClicked?.Invoke(this, EventArgs.Empty);
         }
         private void DisplayNotes(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: Home button clicked, changing to NotesView");
             NotesButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     
         private void DisplayCalendar(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: Calendar button clicked, changing to CalendarView");
             CalendarButtonClicked?.Invoke(this, EventArgs.Empty);
         }
 
         private void DisplayEvents(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: Event button clicked, changing to EventView");
             EventButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     
         private void DisplayAllTodos(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: AllTodos button clicked, changing to AllTodosView");
             AllTodosButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     
         private void DisplayImportantTodos(object sender, RoutedEventArgs e)
         {
+            Log.log.Information("CalendarMonthView: ImportantTodos button clicked, changing to ImportantView");
             ImportantTodosButtonClicked?.Invoke(this, EventArgs.Empty);
         }
     }

@@ -21,6 +21,7 @@ namespace Kalender_Project_FlorianRohat
 
         public override string ToString()
         {
+            Log.log.Information("ToDo: ToString function called");
             return $"{Title} - {TodoDate} - {IsDone} - {IsImportant}";
         }
 

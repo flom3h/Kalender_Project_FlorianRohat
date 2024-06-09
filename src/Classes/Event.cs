@@ -10,12 +10,15 @@ public class Event
     {
         get
         {
+            Log.log.Information("Event: Check if event has end date");
             if (EndDate.HasValue)
             {
+                Log.log.Information("Event: Event has end date, returning combined date");
                 return Date.ToString("dd.MM.yyyy") + " - " + EndDate.Value.ToString("dd.MM.yyyy");
             }
             else
             {
+                Log.log.Information("Event: Event has no end date, returning single date");
                 return Date.ToString("dd.MM.yyyy");
             }
         }

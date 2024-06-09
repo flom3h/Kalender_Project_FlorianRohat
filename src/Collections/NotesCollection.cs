@@ -12,24 +12,28 @@ public class NotesCollection
 
     public void Add(Note note, string key)
     {
+        Log.log.Information("NotesCollection: Add function called, adding note to list");
         NotesList.Add(note);
         NoteKeys[note] = key;
     }
 
     public void Remove(Note note)
     {
+        Log.log.Information("NotesCollection: Remove function called, removing note from list");
         NotesList.Remove(note);
         NoteKeys.Remove(note);
     }
 
     public async void Edit(Note note, string title, string text, FirebaseClient firebaseClient)
     {
+        Log.log.Information("NotesCollection: Edit function called, editing note in list");
         if (NoteKeys.ContainsKey(note))
         {
             note.Title = title;
             note.Text = text;
 
             string key = NoteKeys[note];
+            Log.log.Information("NotesCollection: Updating Firebase database after edit");
             await firebaseClient
                 .Child("Notes")
                 .Child(key)
@@ -37,14 +41,17 @@ public class NotesCollection
         }
         else
         {
+            Log.log.Warning("NotesCollection: Note does not exist in list");
             throw new Exception("The note does not exist in the collection");
         }
     }
 
     public async void Draw(StackPanel noteButtonPanel, NotesView notesView, FirebaseClient firebaseClient)
     {
+        Log.log.Information("NotesCollection: Draw function called, drawing notes to stackpanel");
         noteButtonPanel.Children.Clear();
         
+        Log.log.Information("NotesCollection: Pulling notes from Firebase database");
         var notes = await firebaseClient
             .Child("Notes")
             .OnceAsync<Note>();
@@ -66,6 +73,7 @@ public class NotesCollection
 
     public void Export(Note note, string filename)
     {
+        Log.log.Information("NotesCollection: Export function called, writing note to .txt file");
         using (StreamWriter stream = new StreamWriter(filename))
         {
             stream.WriteLine(note.Title);
