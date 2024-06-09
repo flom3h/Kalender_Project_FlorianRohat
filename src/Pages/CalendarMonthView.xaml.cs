@@ -78,8 +78,9 @@ namespace Kalender_Project_FlorianRohat
             Log.log.Information("CalendarMonthView: FillDays function called, filling days with todos");
             Days.Clear();
 
-            DateTime firstDayToShow = startDate.AddDays(-(int)startDate.DayOfWeek + (int)DayOfWeek.Monday);
-            
+            DateTime firstDayToShow = startDate.DayOfWeek == DayOfWeek.Sunday
+                ? startDate.AddDays(-6)
+                : startDate.AddDays(-(int)startDate.DayOfWeek + (int)DayOfWeek.Monday);
             DateTime lastDayToShow = firstDayToShow.AddDays(27);
             
             Log.log.Information("CalendarMonthView: Drawing each day");
