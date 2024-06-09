@@ -4,15 +4,15 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d"
-             d:DesignHeight="40" d:DesignWidth="350">
-    <Border BorderBrush="Black" BorderThickness="1" CornerRadius="1" Padding="10">
+             d:DesignHeight="40" d:DesignWidth="350" Background="#1C1C1C">
+    <Border Padding="10" CornerRadius="10" Background="#2A2A2A" >
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <TextBlock x:Name="EventText" Grid.Column="0" Text="Title" Margin="2"/>
-            <TextBlock x:Name="EventDate" Grid.Column="1" Text="Date" Margin="2"/>
+            <TextBlock x:Name="EventText" Grid.Column="0" Text="Title" Margin="2" Foreground="#FFFFFF"/>
+            <TextBlock x:Name="EventDate" Grid.Column="1" Text="Date" Margin="2" Foreground="#FFFFFF"/>
         </Grid>
     </Border>
 </UserControl>

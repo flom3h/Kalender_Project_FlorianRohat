@@ -569,7 +569,7 @@
             </StackPanel>
             
             
-            <TextBox x:Name="NoteTextBox" DockPanel.Dock="Top"  IsEnabled="False" FontFamily="Helvetica" FontSize="20" TextChanged="NoteTextBox_OnTextChanged"/>
+            <TextBox x:Name="NoteTextBox" DockPanel.Dock="Top"  IsEnabled="False" FontFamily="Helvetica" FontSize="20" Background="#395B64" TextChanged="NoteTextBox_OnTextChanged"/>
             
             
         </DockPanel>
