@@ -533,7 +533,7 @@
         <DockPanel Grid.Column="2" >
             <DockPanel DockPanel.Dock="Top" Background="#2A2A2A" LastChildFill="False">
                 
-                <Button x:Name="Save" Height="40" Margin="15,5,5,5"  DockPanel.Dock="Left" Cursor="Hand" ToolTip="Speichere die ToDos">
+                <Button x:Name="Save" Height="40" Margin="15,5,5,5"  DockPanel.Dock="Left" Cursor="Hand" ToolTip="Speichere die ToDos" Click="SaveEvent">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
                             <ContentPresenter Content="{TemplateBinding Content}" />
