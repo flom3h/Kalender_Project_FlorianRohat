@@ -472,7 +472,7 @@
                 </Grid>
             </Button>        
 
-            <Button Grid.Row="2" x:Name="AllTodos" Height="30" Margin="2, 10" Click="DisplayAllTodos">
+            <Button Grid.Row="2" x:Name="AllTodos" Height="30" Margin="2, 10" Click="DisplayAllTodos" Background="#595959">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

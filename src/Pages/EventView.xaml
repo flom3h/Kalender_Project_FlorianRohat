@@ -517,7 +517,7 @@
                 </Grid>
             </Button>
 
-            <Button Grid.Row="6" x:Name="Events" Height="30" Margin="2, 10" Click="DisplayEvents">
+            <Button Grid.Row="6" x:Name="Events" Height="30" Margin="2, 10" Click="DisplayEvents"  Background="#595959">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

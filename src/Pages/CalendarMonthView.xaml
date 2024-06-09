@@ -496,7 +496,7 @@
                 </Grid>
             </Button>
 
-            <Button Grid.Row="4" x:Name="CalendarView" Height="30" Margin="2, 10" Click="DisplayCalendar">
+            <Button Grid.Row="4" x:Name="CalendarView" Height="30" Margin="2, 10" Click="DisplayCalendar"  Background="#595959">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

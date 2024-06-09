@@ -5,7 +5,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:kalenderProjectFlorianRohat="clr-namespace:Kalender_Project_FlorianRohat"
       mc:Ignorable="d"
-      Title="MainPage">
+      Title="MainPage"
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
     <Page.Resources>
         <kalenderProjectFlorianRohat:ColorConverter x:Key="ColorConverter"/>
         <ControlTemplate x:Key="CalendarItemTemplate1" TargetType="{x:Type CalendarItem}">
@@ -422,12 +424,12 @@
             <Setter Property="BorderBrush" Value="Transparent"/>
             <Setter Property="FontSize" Value="18"/>
             <Setter Property="Foreground" Value="#FFFFFF"></Setter> 
-            <Setter Property="Padding" Value="30"></Setter>
+            <Setter Property="Padding" Value="50"></Setter>
             
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}"  BorderThickness="1" CornerRadius="5">
+                        <Border Background="{TemplateBinding Background}"  BorderThickness="1" CornerRadius="5" >
                             <ContentPresenter VerticalAlignment="Center" Margin="12 0, 0, 0"/>
                         </Border>
                     </ControlTemplate>
@@ -461,7 +463,7 @@
                 <Calendar x:Name="Calendar" SelectedDatesChanged="DateChange" CalendarButtonStyle="{DynamicResource CalendarCalendarButtonStyle1}" CalendarDayButtonStyle="{DynamicResource CalendarCalendarDayButtonStyle1}" Style="{DynamicResource CalendarStyle1}" Margin="10, 10,10,10"/>
             </Viewbox>
             
-            <Button Grid.Row="1" x:Name="DayView" Height="30" Margin="2, 5" Click="DisplayHome">
+            <Button Grid.Row="1" x:Name="DayView" Height="30" Margin="2, 5" Click="DisplayHome" Background="#595959" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

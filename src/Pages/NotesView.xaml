@@ -506,7 +506,7 @@
                 </Grid>
             </Button>
 
-            <Button Grid.Row="5" x:Name="Notes" Height="30" Margin="2, 10" Click="DisplayNotes">
+            <Button Grid.Row="5" x:Name="Notes" Height="30" Margin="2, 10" Click="DisplayNotes"  Background="#595959">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

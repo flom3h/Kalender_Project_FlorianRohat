@@ -482,7 +482,7 @@
                     <TextBlock Grid.Column="1" Text="Alle Todos" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="11.5,0,0,0"/>
                 </Grid>
             </Button>  
-            <Button Grid.Row="3" x:Name="Important" Height="30" Margin="2, 9" Click="DisplayImportantTodos">
+            <Button Grid.Row="3" x:Name="Important" Height="30" Margin="2, 9" Click="DisplayImportantTodos"  Background="#595959">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto"/>

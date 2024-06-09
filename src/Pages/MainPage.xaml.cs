@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System.ComponentModel;
+using System.Windows.Controls;
 using System.Windows;
 using System.Windows.Threading;
 using Microsoft.Win32;
@@ -7,8 +8,7 @@ using Firebase.Database.Query;
 
 namespace Kalender_Project_FlorianRohat;
 
-public partial class 
-    MainPage : Page
+public partial class MainPage : Page
 {
     public static ToDoCollection toDoCollection;
     private FirebaseClient firebaseClient;
@@ -23,8 +23,8 @@ public partial class
         DayView,
         AllTodosView
     }
-
-    public ViewMode CurrentView { get; set; }
+    
+    
     public MainPage()
     {
         Log.log.Information("MainPage opened");
@@ -37,7 +37,7 @@ public partial class
         LoadTodos();
         Log.log.Information("MainPage initialized, components loaded");
     }
-
+    
     private async void AddClick(object sender, RoutedEventArgs e)
     {
         Log.log.Information("MainPage: Add button clicked, opening AddTodoWindow");
